@@ -91,7 +91,11 @@ class BeerListViewController: UICollectionViewController, UICollectionViewDelega
     // MARK: - UICollectionView Delegate
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    
+        let beerDetailVC = BeerDetailViewController()
+        if let selectedBeer = self.viewModel.getBeer(for: indexPath.item) {
+            beerDetailVC.viewModel.setSelectedBeer(beer: selectedBeer)
+        }
+        navigationController?.pushViewController(beerDetailVC, animated: true)
     }
     
     // MARK: - UICollectionViewDelegateFlowLayout
