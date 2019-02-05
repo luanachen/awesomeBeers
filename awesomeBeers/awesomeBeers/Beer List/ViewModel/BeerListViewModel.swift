@@ -10,13 +10,17 @@ import Foundation
 
 class BeerListViewModel {
     
-    weak var delegate: BeerListViewModelDelegate?
+    weak var viewModelCoordinatorDelegate: BeerListViewModelCoordinatorDelegate?
+    weak var viewDelegate: BeerListViewModelDelegate?
     
     private var beers: [BeerElement]!
-    
     private var errorMessage: String!
     
     var selectedBeer: BeerElement!
+    
+    init(delegate: BeerListViewModelCoordinatorDelegate) {
+        self.viewModelCoordinatorDelegate = delegate
+    }
     
     func loadBeers() {
         
@@ -26,19 +30,19 @@ class BeerListViewModel {
         }
         #endif
         
-        self.delegate?.showLoadingIndicator(isLoading: true)
+        self.viewDelegate?.showLoadingIndicator(isLoading: true)
         
         Facade.shared.dataProvider.beerSession.getAllBeers { result in
             switch result {
             case .success(let beers):
                 guard let beers = beers else { return }
                 self.beers = beers
-                self.delegate?.didLoad(success: true)
-                self.delegate?.showLoadingIndicator(isLoading: false)
+                self.viewDelegate?.didLoad(success: true)
+                self.viewDelegate?.showLoadingIndicator(isLoading: false)
             case .failure(let error):
                 self.errorMessage = error.localizedDescription
-                self.delegate?.didLoad(success: false)
-                self.delegate?.showLoadingIndicator(isLoading: false)
+                self.viewDelegate?.didLoad(success: false)
+                self.viewDelegate?.showLoadingIndicator(isLoading: false)
                 print("the error \(error)")
             }
         }
@@ -53,8 +57,9 @@ class BeerListViewModel {
         return beers[row]
     }
     
-    func setSelectedBeer(beer: BeerElement) {
-        self.selectedBeer = beer
+    func didSelectRow(_ row: Int) {
+        self.selectedBeer = beers[row]
+        viewModelCoordinatorDelegate?.didSelect(beer: selectedBeer)
     }
     
     func getErrorMessage() -> String {
@@ -62,3 +67,4 @@ class BeerListViewModel {
     }
     
 }
+

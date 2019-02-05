@@ -9,7 +9,7 @@
 import UIKit
 import Kingfisher
 
-class BeerLisCell:  UICollectionViewCell {
+class BeerListCell:  UICollectionViewCell {
     
     static var identifier = "BeerListCell"
     
