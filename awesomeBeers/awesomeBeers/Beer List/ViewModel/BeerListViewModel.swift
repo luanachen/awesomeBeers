@@ -19,17 +19,28 @@ class BeerListViewModel: BeerListViewModelProtocol {
     var selectedBeer: BeerElement!
     
     func loadBeers() {
-        loadFile()
-    }
-    
-    fileprivate func loadFile() {
-        let url = Bundle.main.url(forResource: "beerList", withExtension: "json")!
-        do {
-            let jsonData = try Data(contentsOf: url)
-            let beerData = try JSONDecoder().decode([BeerElement].self, from: jsonData)
-            self.beers = beerData
-        } catch {
-            fatalError("could not read from mocked json")
+        
+        #if DEBUG
+        if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil {
+            beers = MockLoader().loadFile()
+        }
+        #endif
+        
+        self.delegate?.showLoadingIndicator(isLoading: true)
+        
+        Facade.shared.dataProvider.beerSession.getAllBeers { result in
+            switch result {
+            case .success(let beers):
+                guard let beers = beers else { return }
+                self.beers = beers
+                self.delegate?.didLoad(success: true)
+                self.delegate?.showLoadingIndicator(isLoading: false)
+            case .failure(let error):
+                self.errorMessage = error.localizedDescription
+                self.delegate?.didLoad(success: false)
+                self.delegate?.showLoadingIndicator(isLoading: false)
+                print("the error \(error)")
+            }
         }
     }
     
