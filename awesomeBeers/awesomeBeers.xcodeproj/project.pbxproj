@@ -23,6 +23,7 @@
 		0F2A1C8E2209B66200294DC9 /* BeerSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C8C2209B66200294DC9 /* BeerSessionProtocol.swift */; };
 		0F2A1C922209B68500294DC9 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C902209B68400294DC9 /* DataProvider.swift */; };
 		0F2A1C932209B68500294DC9 /* DataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C912209B68500294DC9 /* DataProtocol.swift */; };
+		0F2A1C952209B97600294DC9 /* Facade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C942209B97600294DC9 /* Facade.swift */; };
 		0FE93636220863DB00EC1F93 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE93635220863DB00EC1F93 /* AppDelegate.swift */; };
 		0FE9363D220863DC00EC1F93 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0FE9363C220863DC00EC1F93 /* Assets.xcassets */; };
 		0FE93640220863DC00EC1F93 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FE9363E220863DC00EC1F93 /* LaunchScreen.storyboard */; };
@@ -73,6 +74,7 @@
 		0F2A1C8C2209B66200294DC9 /* BeerSessionProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeerSessionProtocol.swift; sourceTree = "<group>"; };
 		0F2A1C902209B68400294DC9 /* DataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		0F2A1C912209B68500294DC9 /* DataProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProtocol.swift; sourceTree = "<group>"; };
+		0F2A1C942209B97600294DC9 /* Facade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Facade.swift; sourceTree = "<group>"; };
 		0FE93632220863DB00EC1F93 /* awesomeBeers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = awesomeBeers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FE93635220863DB00EC1F93 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0FE9363C220863DC00EC1F93 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 		0FE936642208664F00EC1F93 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				0F2A1C942209B97600294DC9 /* Facade.swift */,
 				0FE93635220863DB00EC1F93 /* AppDelegate.swift */,
 			);
 			path = App;
@@ -514,6 +517,7 @@
 				0FE93636220863DB00EC1F93 /* AppDelegate.swift in Sources */,
 				0FE9367822086BE500EC1F93 /* BeerListViewModelDelegate.swift in Sources */,
 				0FE936822208726A00EC1F93 /* PinterestLayout.swift in Sources */,
+				0F2A1C952209B97600294DC9 /* Facade.swift in Sources */,
 				0FE9367722086BE500EC1F93 /* BeerListViewModelProtocol.swift in Sources */,
 				0F2A1C852209B64D00294DC9 /* HTTPHeader.swift in Sources */,
 				0F2A1C872209B64D00294DC9 /* MockLoader.swift in Sources */,
