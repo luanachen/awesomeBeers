@@ -2,8 +2,8 @@
 //  EndPoint.swift
 //  protocolBeer
 //
-//  Created by Luana on 27/12/18.
-//  Copyright © 2018 IDwall. All rights reserved.
+//  Created by Luana Chen on 05/02/19.
+//  Copyright © 2019 Luana Chen. All rights reserved.
 //
 
 import Foundation
@@ -12,7 +12,6 @@ import Foundation
 
 enum BeerEndpoint {
     case allBeers
-    case beer
 }
 
 extension BeerEndpoint: EndpointType {
@@ -24,7 +23,6 @@ extension BeerEndpoint: EndpointType {
     var path: String {
         switch self {
         case .allBeers: return "/v2/beers"
-        case .beer: return "/v2/beers"
         }
     }
 
