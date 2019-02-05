@@ -8,7 +8,7 @@
 
 import Foundation
 
-class BeerDetailViewModel: BeerDetailViewModelProtocol {
+class BeerDetailViewModel {
 
     private var selectedBeer: BeerElement!
 
