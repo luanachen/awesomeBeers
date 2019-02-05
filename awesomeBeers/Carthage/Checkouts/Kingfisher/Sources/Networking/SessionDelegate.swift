@@ -55,14 +55,13 @@ class SessionDelegate: NSObject {
     func add(
         _ dataTask: URLSessionDataTask,
         url: URL,
-        callback: SessionDataTask.TaskCallback) -> DownloadTask
-    {
+        callback: SessionDataTask.TaskCallback) -> DownloadTask {
         lock.lock()
         defer { lock.unlock() }
 
         // Create a new task if necessary.
         let task = SessionDataTask(task: dataTask)
-        task.onCallbackCancelled.delegate(on: self) { [unowned task] (self, value) in
+        task.onCallbackCancelled.delegate(on: self) { [unowned task] (_, value) in
             let (token, callback) = value
 
             let error = KingfisherError.requestError(reason: .taskCancelled(task: task, token: token))
@@ -81,8 +80,7 @@ class SessionDelegate: NSObject {
     func append(
         _ task: SessionDataTask,
         url: URL,
-        callback: SessionDataTask.TaskCallback) -> DownloadTask
-    {
+        callback: SessionDataTask.TaskCallback) -> DownloadTask {
         lock.lock()
         defer { lock.unlock() }
         let token = task.addCallback(callback)
@@ -135,8 +133,7 @@ extension SessionDelegate: URLSessionDataDelegate {
         _ session: URLSession,
         dataTask: URLSessionDataTask,
         didReceive response: URLResponse,
-        completionHandler: @escaping (URLSession.ResponseDisposition) -> Void)
-    {
+        completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
         lock.lock()
         defer { lock.unlock() }
 
@@ -210,8 +207,7 @@ extension SessionDelegate: URLSessionDataDelegate {
     func urlSession(
         _ session: URLSession,
         didReceive challenge: URLAuthenticationChallenge,
-        completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void)
-    {
+        completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         onReceiveSessionChallenge.call((session, challenge, completionHandler))
     }
 
@@ -219,27 +215,24 @@ extension SessionDelegate: URLSessionDataDelegate {
         _ session: URLSession,
         task: URLSessionTask,
         didReceive challenge: URLAuthenticationChallenge,
-        completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void)
-    {
+        completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         onReceiveSessionTaskChallenge.call((session, task, challenge, completionHandler))
     }
-    
+
     func urlSession(
         _ session: URLSession,
         task: URLSessionTask,
         willPerformHTTPRedirection response: HTTPURLResponse,
         newRequest request: URLRequest,
-        completionHandler: @escaping (URLRequest?) -> Void)
-    {
+        completionHandler: @escaping (URLRequest?) -> Void) {
         lock.lock()
         defer { lock.unlock() }
         guard let sessionDataTask = self.task(for: task),
-              let redirectHandler = Array(sessionDataTask.callbacks).last?.options.redirectHandler else
-        {
+              let redirectHandler = Array(sessionDataTask.callbacks).last?.options.redirectHandler else {
             completionHandler(request)
             return
         }
-        
+
         redirectHandler.handleHTTPRedirection(
             for: sessionDataTask,
             response: response,

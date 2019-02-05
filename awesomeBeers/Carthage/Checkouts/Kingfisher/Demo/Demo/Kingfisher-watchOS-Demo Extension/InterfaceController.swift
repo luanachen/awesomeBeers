@@ -24,7 +24,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-
 import WatchKit
 import Foundation
 import Kingfisher
@@ -32,19 +31,18 @@ import Kingfisher
 var count = 0
 
 class InterfaceController: WKInterfaceController {
-    
+
     @IBOutlet var interfaceImage: WKInterfaceImage!
-    
+
     var currentIndex: Int?
-    
-    
+
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        
+
         currentIndex = count
         count += 1
     }
-    
+
     func refreshImage() {
         let url = URL(string: "https://raw.githubusercontent.com/onevcat/Kingfisher/master/images/kingfisher-\(currentIndex! + 1).jpg")!
         interfaceImage.kf.setImage(with: url)

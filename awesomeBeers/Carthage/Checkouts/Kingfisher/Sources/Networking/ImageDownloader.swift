@@ -84,7 +84,7 @@ open class ImageDownloader {
     // MARK: Public Properties
     /// The duration before the downloading is timeout. Default is 15 seconds.
     open var downloadTimeout: TimeInterval = 15.0
-    
+
     /// A set of trusted hosts when receiving server trust challenges. A challenge with host name contained in this
     /// set will be ignored. You can use this set to specify the self-signed site. It only will be used if you don't
     /// specify the `authenticationChallengeResponder`.
@@ -92,7 +92,7 @@ open class ImageDownloader {
     /// If `authenticationChallengeResponder` is set, this property will be ignored and the implementation of
     /// `authenticationChallengeResponder` will be used instead.
     open var trustedHosts: Set<String>?
-    
+
     /// Use this to set supply a configuration for the downloader. By default,
     /// NSURLSessionConfiguration.ephemeralSessionConfiguration() will be used.
     ///
@@ -104,13 +104,13 @@ open class ImageDownloader {
             session = URLSession(configuration: sessionConfiguration, delegate: sessionDelegate, delegateQueue: nil)
         }
     }
-    
+
     /// Whether the download requests should use pipeline or not. Default is false.
     open var requestsUsePipelining = false
 
     /// Delegate of this `ImageDownloader` object. See `ImageDownloaderDelegate` protocol for more.
     open weak var delegate: ImageDownloaderDelegate?
-    
+
     /// A responder for authentication challenge. 
     /// Downloader will forward the received authentication challenge for the downloading session to this responder.
     open weak var authenticationChallengeResponder: AuthenticationChallengeResponsable?
@@ -145,22 +145,22 @@ open class ImageDownloader {
     deinit { session.invalidateAndCancel() }
 
     private func setupSessionHandler() {
-        sessionDelegate.onReceiveSessionChallenge.delegate(on: self) { (self, invoke) in
+        sessionDelegate.onReceiveSessionChallenge.delegate(on: self) { (_, invoke) in
             self.authenticationChallengeResponder?.downloader(self, didReceive: invoke.1, completionHandler: invoke.2)
         }
-        sessionDelegate.onReceiveSessionTaskChallenge.delegate(on: self) { (self, invoke) in
+        sessionDelegate.onReceiveSessionTaskChallenge.delegate(on: self) { (_, invoke) in
             self.authenticationChallengeResponder?.downloader(
                 self, task: invoke.1, didReceive: invoke.2, completionHandler: invoke.3)
         }
-        sessionDelegate.onValidStatusCode.delegate(on: self) { (self, code) in
+        sessionDelegate.onValidStatusCode.delegate(on: self) { (_, code) in
             return (self.delegate ?? self).isValidStatusCode(code, for: self)
         }
-        sessionDelegate.onDownloadingFinished.delegate(on: self) { (self, value) in
+        sessionDelegate.onDownloadingFinished.delegate(on: self) { (_, value) in
             let (url, result) = value
             self.delegate?.imageDownloader(
                 self, didFinishDownloadingImageForURL: url, with: result.value, error: result.error)
         }
-        sessionDelegate.onDidDownloadData.delegate(on: self) { (self, task) in
+        sessionDelegate.onDidDownloadData.delegate(on: self) { (_, task) in
             guard let url = task.task.originalRequest?.url else {
                 return task.mutableData
             }
@@ -173,8 +173,7 @@ open class ImageDownloader {
         with url: URL,
         options: KingfisherParsedOptionsInfo,
         progressBlock: DownloadProgressBlock? = nil,
-        completionHandler: ((Result<ImageLoadingResult, KingfisherError>) -> Void)? = nil) -> DownloadTask?
-    {
+        completionHandler: ((Result<ImageLoadingResult, KingfisherError>) -> Void)? = nil) -> DownloadTask? {
         // Creates default request.
         var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: downloadTimeout)
         request.httpShouldUsePipelining = requestsUsePipelining
@@ -189,7 +188,7 @@ open class ImageDownloader {
             }
             request = r
         }
-        
+
         // There is a possibility that request modifier changed the url to `nil` or empty.
         // In this case, throw an error.
         guard let url = request.url, !url.absoluteString.isEmpty else {
@@ -235,7 +234,7 @@ open class ImageDownloader {
         }
 
         let sessionTask = downloadTask.sessionTask
-        sessionTask.onTaskDone.delegate(on: self) { (self, done) in
+        sessionTask.onTaskDone.delegate(on: self) { (_, done) in
             // Underlying downloading finishes.
             // result: Result<(Data, URLResponse?)>, callbacks: [TaskCallback]
             let (result, callbacks) = done
@@ -252,7 +251,7 @@ open class ImageDownloader {
             case .success(let (data, response)):
                 let processor = ImageDataProcessor(
                     data: data, callbacks: callbacks, processingQueue: options.processingQueue)
-                processor.onImageProcessed.delegate(on: self) { (self, result) in
+                processor.onImageProcessed.delegate(on: self) { (_, result) in
                     // `onImageProcessed` will be called for `callbacks.count` times, with each
                     // `SessionDataTask.TaskCallback` as the input parameter.
                     // result: Result<Image>, callback: SessionDataTask.TaskCallback
@@ -299,8 +298,7 @@ open class ImageDownloader {
         with url: URL,
         options: KingfisherOptionsInfo? = nil,
         progressBlock: DownloadProgressBlock? = nil,
-        completionHandler: ((Result<ImageLoadingResult, KingfisherError>) -> Void)? = nil) -> DownloadTask?
-    {
+        completionHandler: ((Result<ImageLoadingResult, KingfisherError>) -> Void)? = nil) -> DownloadTask? {
         return downloadImage(
             with: url,
             options: KingfisherParsedOptionsInfo(options),

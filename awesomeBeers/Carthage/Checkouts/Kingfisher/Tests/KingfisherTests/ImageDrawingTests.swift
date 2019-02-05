@@ -33,12 +33,12 @@ class ImageDrawingTests: XCTestCase {
         let result = testImage.kf.resize(to: CGSize(width: 20, height: 20))
         XCTAssertEqual(result.size, CGSize(width: 20, height: 20))
     }
-    
+
     func testImageCropping() {
         let result = testImage.kf.crop(to: CGSize(width: 20, height: 20), anchorOn: .zero)
         XCTAssertEqual(result.size, CGSize(width: 20, height: 20))
     }
-    
+
     func testImageScaling() {
         XCTAssertEqual(testImage.kf.scale, 1)
         let result = testImage.kf.scaled(to: 2.0)

@@ -28,27 +28,27 @@ import XCTest
 import Kingfisher
 
 class ImageDataProviderTests: XCTestCase {
-    
+
     func testLocalFileImageDataProvider() {
         let fm = FileManager.default
         let document = try! fm.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
         let fileURL = document.appendingPathComponent("test")
         try! testImageData.write(to: fileURL)
-        
+
         let provider = LocalFileImageDataProvider(fileURL: fileURL)
         XCTAssertEqual(provider.cacheKey, fileURL.absoluteString)
         XCTAssertEqual(provider.fileURL, fileURL)
-        
+
         var syncCalled = false
         provider.data { result in
             XCTAssertEqual(result.value, testImageData)
             syncCalled = true
         }
-        
+
         XCTAssertTrue(syncCalled)
         try! fm.removeItem(at: fileURL)
     }
-    
+
     func testBase64ImageDataProvider() {
         let base64String = testImageData.base64EncodedString()
         let provider = Base64ImageDataProvider(base64String: base64String, cacheKey: "123")
@@ -58,8 +58,8 @@ class ImageDataProviderTests: XCTestCase {
             XCTAssertEqual(result.value, testImageData)
             syncCalled = true
         }
-        
+
         XCTAssertTrue(syncCalled)
     }
-    
+
 }

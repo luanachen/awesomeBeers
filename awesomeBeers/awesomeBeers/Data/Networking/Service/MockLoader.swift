@@ -9,10 +9,10 @@
 import Foundation
 
 class MockLoader {
-    
-    func loadFile() -> [BeerElement] {
+
+    func loadFile() -> [BeerElement]? {
         var beers = [BeerElement]()
-        let url = Bundle.main.url(forResource: "beerList", withExtension: "json")!
+        guard let url = Bundle.main.url(forResource: "beerList", withExtension: "json") else { return nil}
         do {
             let jsonData = try Data(contentsOf: url)
             let beerData = try JSONDecoder().decode([BeerElement].self, from: jsonData)

@@ -36,9 +36,9 @@ let gifData: Data = {
 class IndicatorCollectionViewController: UICollectionViewController {
 
     class MyIndicator: Indicator {
-        
+
         var timer: Timer?
-        
+
         func startAnimatingView() {
             view.isHidden = false
             timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { _ in
@@ -51,22 +51,22 @@ class IndicatorCollectionViewController: UICollectionViewController {
                 })
             }
         }
-        
+
         func stopAnimatingView() {
             view.isHidden = true
             timer?.invalidate()
         }
-        
+
         var view: IndicatorView = {
             let view = UIView()
             view.heightAnchor.constraint(equalToConstant: 30).isActive = true
             view.widthAnchor.constraint(equalToConstant: 30).isActive = true
-            
+
             view.backgroundColor = .red
             return view
         }()
     }
-    
+
     let indicators: [String] = [
         "None",
         "UIActivityIndicatorView",
@@ -87,7 +87,7 @@ class IndicatorCollectionViewController: UICollectionViewController {
         default: fatalError()
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupOperationNavigationBar()
@@ -105,7 +105,7 @@ class IndicatorCollectionViewController: UICollectionViewController {
             options: [.memoryCacheExpiration(.expired), .diskCacheExpiration(.expired)])
         return cell
     }
-    
+
     override func alertPopup(_ sender: Any) -> UIAlertController {
         let alert = super.alertPopup(sender)
         for item in indicators.enumerated() {

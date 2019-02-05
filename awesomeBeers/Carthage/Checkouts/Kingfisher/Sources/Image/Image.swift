@@ -24,7 +24,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-
 #if os(macOS)
 import AppKit
 private var imagesKey: Void?
@@ -50,26 +49,26 @@ extension KingfisherWrapper where Base: Image {
         get { return getAssociatedObject(base, &animatedImageDataKey) }
         set { setRetainedAssociatedObject(base, &animatedImageDataKey, newValue) }
     }
-    
+
     #if os(macOS)
     var cgImage: CGImage? {
         return base.cgImage(forProposedRect: nil, context: nil, hints: nil)
     }
-    
+
     var scale: CGFloat {
         return 1.0
     }
-    
+
     private(set) var images: [Image]? {
         get { return getAssociatedObject(base, &imagesKey) }
         set { setRetainedAssociatedObject(base, &imagesKey, newValue) }
     }
-    
+
     private(set) var duration: TimeInterval {
         get { return getAssociatedObject(base, &durationKey) ?? 0.0 }
         set { setRetainedAssociatedObject(base, &durationKey, newValue) }
     }
-    
+
     var size: CGSize {
         return base.representations.reduce(.zero) { size, rep in
             let width = max(size.width, CGFloat(rep.pixelsWide))
@@ -83,7 +82,7 @@ extension KingfisherWrapper where Base: Image {
     var images: [Image]? { return base.images }
     var duration: TimeInterval { return base.duration }
     var size: CGSize { return base.size }
-    
+
     private(set) var imageSource: CGImageSource? {
         get { return getAssociatedObject(base, &imageSourceKey) }
         set { setRetainedAssociatedObject(base, &imageSourceKey, newValue) }
@@ -106,7 +105,7 @@ extension KingfisherWrapper where Base: Image {
     static func image(cgImage: CGImage, scale: CGFloat, refImage: Image?) -> Image {
         return Image(cgImage: cgImage, size: .zero)
     }
-    
+
     /// Normalize the image. This getter does nothing on macOS but return the image itself.
     public var normalized: Image { return base }
 
@@ -116,7 +115,7 @@ extension KingfisherWrapper where Base: Image {
     static func image(cgImage: CGImage, scale: CGFloat, refImage: Image?) -> Image {
         return Image(cgImage: cgImage, scale: scale, orientation: refImage?.imageOrientation ?? .up)
     }
-    
+
     /// Returns normalized image for current `base` image.
     /// This method will try to redraw an image with orientation and scale considered.
     public var normalized: Image {
@@ -124,7 +123,7 @@ extension KingfisherWrapper where Base: Image {
         guard images == nil else { return base }
         // No need to do anything if already up
         guard base.imageOrientation != .up else { return base }
-    
+
         return draw(to: size) { _ in
             base.draw(in: CGRect(origin: .zero, size: size))
         }
@@ -163,7 +162,7 @@ extension KingfisherWrapper where Base: Image {
                 return nil
             }
             let rep = NSBitmapImageRep(cgImage: cgImage)
-            return rep.representation(using:.jpeg, properties: [.compressionFactor: compressionQuality])
+            return rep.representation(using: .jpeg, properties: [.compressionFactor: compressionQuality])
         #else
             #if swift(>=4.2)
             return base.jpegData(compressionQuality: compressionQuality)
@@ -196,11 +195,11 @@ extension KingfisherWrapper where Base: Image {
             kCGImageSourceShouldCache as String: true,
             kCGImageSourceTypeIdentifierHint as String: kUTTypeGIF
         ]
-        
+
         guard let imageSource = CGImageSourceCreateWithData(data as CFData, info as CFDictionary) else {
             return nil
         }
-        
+
         #if os(macOS)
         guard let animatedImage = GIFAnimatedImage(from: imageSource, for: info, options: options) else {
             return nil
@@ -217,7 +216,7 @@ extension KingfisherWrapper where Base: Image {
         image?.kf.animatedImageData = data
         return image
         #else
-        
+
         let image: Image?
         if options.preloadAll || options.onlyFirstFrame {
             // Use `images` image if you want to preload all animated data
@@ -237,7 +236,7 @@ extension KingfisherWrapper where Base: Image {
             kf?.imageSource = imageSource
             kf?.animatedImageData = data
         }
-        
+
         return image
         #endif
     }
@@ -265,7 +264,7 @@ extension KingfisherWrapper where Base: Image {
         }
         return image
     }
-    
+
     /// Creates a downsampled image from given data to a certain size and scale.
     ///
     /// - Parameters:
@@ -286,7 +285,7 @@ extension KingfisherWrapper where Base: Image {
         guard let imageSource = CGImageSourceCreateWithData(data as CFData, imageSourceOptions) else {
             return nil
         }
-        
+
         let maxDimensionInPixels = max(pointSize.width, pointSize.height) * scale
         let downsampleOptions = [
             kCGImageSourceCreateThumbnailFromImageAlways: true,

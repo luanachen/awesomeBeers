@@ -37,7 +37,7 @@ extension KingfisherWrapper where Base == String {
         _ = data.withUnsafeBytes { bytes in
             return CC_MD5(bytes, CC_LONG(data.count), &digest)
         }
-        
+
         return digest.map { String(format: "%02x", $0) }.joined()
     }
 }

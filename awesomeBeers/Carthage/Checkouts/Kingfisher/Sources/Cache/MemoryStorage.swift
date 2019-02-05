@@ -45,7 +45,7 @@ public enum MemoryStorage {
         let storage = NSCache<NSString, StorageObject<T>>()
         var keys = Set<String>()
 
-        var cleanTimer: Timer? = nil
+        var cleanTimer: Timer?
         let lock = NSLock()
 
         let cacheDelegate = CacheDelegate<StorageObject<T>>()
@@ -68,7 +68,7 @@ public enum MemoryStorage {
             storage.totalCostLimit = config.totalCostLimit
             storage.countLimit = config.countLimit
             storage.delegate = cacheDelegate
-            cacheDelegate.onObjectRemoved.delegate(on: self) { (self, obj) in
+            cacheDelegate.onObjectRemoved.delegate(on: self) { (_, obj) in
                 self.keys.remove(obj.key)
             }
 
@@ -99,8 +99,7 @@ public enum MemoryStorage {
         func store(
             value: T,
             forKey key: String,
-            expiration: StorageExpiration? = nil) throws
-        {
+            expiration: StorageExpiration? = nil) throws {
             storeNoThrow(value: value, forKey: key, expiration: expiration)
         }
 
@@ -109,14 +108,13 @@ public enum MemoryStorage {
         func storeNoThrow(
             value: T,
             forKey key: String,
-            expiration: StorageExpiration? = nil)
-        {
+            expiration: StorageExpiration? = nil) {
             lock.lock()
             defer { lock.unlock() }
             let expiration = expiration ?? config.expiration
             // The expiration indicates that already expired, no need to store.
             guard !expiration.isExpired else { return }
-            
+
             let object = StorageObject(value, key: key, expiration: expiration)
             storage.setObject(object, forKey: key as NSString, cost: value.cacheCost)
             keys.insert(key)
@@ -209,21 +207,21 @@ extension MemoryStorage {
         let value: T
         let expiration: StorageExpiration
         let key: String
-        
+
         private(set) var estimatedExpiration: Date
-        
+
         init(_ value: T, key: String, expiration: StorageExpiration) {
             self.value = value
             self.key = key
             self.expiration = expiration
-            
+
             self.estimatedExpiration = expiration.estimatedExpirationSinceNow
         }
-        
+
         func extendExpiration() {
             self.estimatedExpiration = expiration.estimatedExpirationSinceNow
         }
-        
+
         var expired: Bool {
             return estimatedExpiration.isPast
         }

@@ -32,11 +32,11 @@ class DetailImageViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var infoLabel: UILabel!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.delegate = self
-        
+
         imageView.kf.setImage(with: imageURL, options: [.memoryCacheExpiration(.expired)]) { result in
             guard let image = result.value?.image else {
                 return
@@ -49,7 +49,7 @@ class DetailImageViewController: UIViewController {
             DispatchQueue.main.async {
                 self.scrollView.zoomScale = minScale
             }
-            
+
             self.infoLabel.text = "\(image.size)"
         }
     }

@@ -16,7 +16,7 @@ enum APIError: Error {
     case requestFailed(description: String)
     case jsonConversionFailure(description: String)
     case postParametersEncodingFailure(description: String)
-    
+
     var customDescription: String {
         switch self {
         case .requestFailed(let description): return "APIError - Request Failed -> \(description)"

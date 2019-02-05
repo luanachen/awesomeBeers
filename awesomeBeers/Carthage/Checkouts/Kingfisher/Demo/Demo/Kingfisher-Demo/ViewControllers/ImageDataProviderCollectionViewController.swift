@@ -34,7 +34,7 @@ class ImageDataProviderCollectionViewController: UICollectionViewController {
     let model: [(String, UIColor)] = [
         ("A", .red), ("B", .green), ("C", .blue), ("D", .yellow), ("赵", .purple), ("钱", .orange),
         ("孙", .black), ("李", .brown), ("ア", .darkGray), ("イ", .cyan), ("ウ", .magenta)]
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Provider"
@@ -47,10 +47,10 @@ class ImageDataProviderCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ImageCollectionViewCell
-    
+
         let pair = model[indexPath.row]
         let provider = UserNameLetterIconImageProvider(userNameFirstLetter: pair.0, backgroundColor: pair.1)
-        cell.cellImageView.kf.setImage(with: provider, options:[.processor(RoundCornerImageProcessor(cornerRadius: 75))])
+        cell.cellImageView.kf.setImage(with: provider, options: [.processor(RoundCornerImageProcessor(cornerRadius: 75))])
 
         return cell
     }
@@ -60,29 +60,29 @@ struct UserNameLetterIconImageProvider: ImageDataProvider {
     var cacheKey: String { return letter }
     let letter: String
     let color: UIColor
-    
+
     init(userNameFirstLetter: String, backgroundColor: UIColor) {
         letter = userNameFirstLetter
         color = backgroundColor
     }
-    
+
     func data(handler: @escaping (Result<Data, Error>) -> Void) {
         let letter = self.letter as NSString
         let rect = CGRect(x: 0, y: 0, width: 250, height: 250)
-        
+
         let format = UIGraphicsImageRendererFormat.default()
         format.scale = 1
-        
+
         let renderer = UIGraphicsImageRenderer(size: rect.size, format: format)
         let data = renderer.pngData { context in
             color.setFill()
             context.fill(rect)
-            
+
             let attributes = [
                 NSAttributedString.Key.foregroundColor: UIColor.white,
                 .font: UIFont.systemFont(ofSize: 200)
             ]
-            
+
             let textSize = letter.size(withAttributes: attributes)
             let textRect = CGRect(
                 x: (rect.width - textSize.width) / 2,

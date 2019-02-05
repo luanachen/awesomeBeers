@@ -13,14 +13,15 @@ struct BeerResult: Decodable {
 }
 
 struct BeerElement: Decodable {
-    let id: Int
+    let beerId: Int
     let name, tagline, description: String
     let imageURL: String
     let abv: Double
     let ibu: Double?
 
     enum CodingKeys: String, CodingKey {
-        case id, name, tagline
+        case beerId = "id"
+        case name, tagline
         case description
         case imageURL = "image_url"
         case abv, ibu
@@ -30,4 +31,3 @@ struct BeerElement: Decodable {
 struct BeerParameter: Encodable {
     let name: String
 }
-

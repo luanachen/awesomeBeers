@@ -24,7 +24,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-
 import XCTest
 @testable import Kingfisher
 
@@ -37,26 +36,26 @@ class ImageDownloaderTests: XCTestCase {
         super.setUp()
         LSNocilla.sharedInstance().start()
     }
-    
+
     override class func tearDown() {
         LSNocilla.sharedInstance().stop()
         super.tearDown()
     }
-    
+
     override func setUp() {
         super.setUp()
         downloader = ImageDownloader(name: "test")
     }
-    
+
     override func tearDown() {
         LSNocilla.sharedInstance().clearStubs()
         downloader = nil
         super.tearDown()
     }
-    
+
     func testDownloadAnImage() {
         let exp = expectation(description: #function)
-        
+
         let url = testURLs[0]
         stub(url, data: testImageData)
 
@@ -66,11 +65,11 @@ class ImageDownloaderTests: XCTestCase {
         }
         waitForExpectations(timeout: 3, handler: nil)
     }
-    
+
     func testDownloadMultipleImages() {
         let exp = expectation(description: #function)
         let group = DispatchGroup()
-        
+
         for url in testURLs {
             group.enter()
             stub(url, data: testImageData)
@@ -79,14 +78,14 @@ class ImageDownloaderTests: XCTestCase {
                 group.leave()
             }
         }
-        
+
         group.notify(queue: .main, execute: exp.fulfill)
         waitForExpectations(timeout: 3, handler: nil)
     }
-    
+
     func testDownloadAnImageWithMultipleCallback() {
         let exp = expectation(description: #function)
-        
+
         let group = DispatchGroup()
         let url = testURLs[0]
         stub(url, data: testImageData)
@@ -102,15 +101,15 @@ class ImageDownloaderTests: XCTestCase {
         group.notify(queue: .main, execute: exp.fulfill)
         waitForExpectations(timeout: 3, handler: nil)
     }
-    
+
     func testDownloadWithModifyingRequest() {
         let exp = expectation(description: #function)
 
         let url = testURLs[0]
         stub(url, data: testImageData)
-        
+
         modifier.url = url
-        
+
         let someURL = URL(string: "some_strange_url")!
         downloader.downloadImage(with: someURL, options: [.requestModifier(modifier)]) { result in
             XCTAssertNotNil(result.value)
@@ -137,22 +136,22 @@ class ImageDownloaderTests: XCTestCase {
         }
         waitForExpectations(timeout: 3, handler: nil)
     }
-    
+
     func testServerInvalidStatusCode() {
         let exp = expectation(description: #function)
-        
+
         let url = testURLs[0]
         stub(url, data: testImageData, statusCode: 404)
-        
+
         downloader.downloadImage(with: url) { result in
             XCTAssertNotNil(result.error)
             XCTAssertTrue(result.error!.isInvalidResponseStatusCode(404))
             exp.fulfill()
         }
-        
+
         waitForExpectations(timeout: 3, handler: nil)
     }
-    
+
     // Since we could not receive one challage, no test for trusted hosts currently.
     // See http://stackoverflow.com/questions/27065372/ for more.
     func testSSLCertificateValidation() {
@@ -162,7 +161,7 @@ class ImageDownloaderTests: XCTestCase {
 
         let downloader = ImageDownloader(name: "ssl.test")
         let url = URL(string: "https://testssl-expire.disig.sk/Expired.png")!
-        
+
         downloader.downloadImage(with: url) { result in
             XCTAssertNotNil(result.error)
             if case .responseError(reason: .URLSessionError(let error)) = result.error! {
@@ -176,23 +175,22 @@ class ImageDownloaderTests: XCTestCase {
             exp.fulfill()
             LSNocilla.sharedInstance().start()
         }
-        
+
         waitForExpectations(timeout: 20) { error in
             XCTAssertNil(error, "\(String(describing: error))")
             LSNocilla.sharedInstance().start()
         }
     }
- 
-    
+
     func testDownloadResultErrorAndRetry() {
         let exp = expectation(description: #function)
-        
+
         let url = testURLs[0]
 
         stub(url, errorCode: -1)
         downloader.downloadImage(with: url) { result in
             XCTAssertNotNil(result.error)
-            
+
             LSNocilla.sharedInstance().clearStubs()
 
             stub(url, data: testImageData)
@@ -202,21 +200,20 @@ class ImageDownloaderTests: XCTestCase {
                 exp.fulfill()
             }
         }
-        
+
         waitForExpectations(timeout: 3, handler: nil)
     }
-    
+
     func testDownloadEmptyURL() {
         let exp = expectation(description: #function)
-        
+
         modifier.url = nil
-        
+
         let url = URL(string: "http://onevcat.com")!
         downloader.downloadImage(
             with: url,
             options: [.requestModifier(modifier)],
-            progressBlock: { received, totalSize in XCTFail("The progress block should not be called.") })
-        {
+            progressBlock: { _, _ in XCTFail("The progress block should not be called.") }) {
             result in
             XCTAssertNotNil(result.error)
             if case .requestError(reason: .invalidURL(let request)) = result.error! {
@@ -226,35 +223,34 @@ class ImageDownloaderTests: XCTestCase {
             }
             exp.fulfill()
         }
-        
+
         waitForExpectations(timeout: 3, handler: nil)
     }
-    
+
     func testDownloadTaskProperty() {
         let task = downloader.downloadImage(with: URL(string: "1234")!)
         XCTAssertNotNil(task, "The task should exist.")
     }
-    
+
     func testCancelDownloadTask() {
         let exp = expectation(description: #function)
         let url = testURLs[0]
         let stub = delayedStub(url, data: testImageData, length: 123)
-        
+
         let task = downloader.downloadImage(
             with: url,
-            progressBlock: { _, _ in XCTFail() })
-        {
+            progressBlock: { _, _ in XCTFail() }) {
             result in
             XCTAssertNotNil(result.error)
             XCTAssertTrue(result.error!.isTaskCancelled)
             delay(0.1) { exp.fulfill() }
         }
-        
+
         XCTAssertNotNil(task)
         task!.cancel()
 
         _ = stub.go()
-        
+
         waitForExpectations(timeout: 3, handler: nil)
     }
 
@@ -284,7 +280,7 @@ class ImageDownloaderTests: XCTestCase {
         }
         waitForExpectations(timeout: 3, handler: nil)
     }
-    
+
     func testCancelAllDownloadTasks() {
         let exp = expectation(description: #function)
 
@@ -316,75 +312,74 @@ class ImageDownloaderTests: XCTestCase {
         }
         waitForExpectations(timeout: 3, handler: nil)
     }
-    
+
     func testCancelDownloadTaskForURL() {
         let exp = expectation(description: #function)
-        
+
         let url1 = testURLs[0]
         let stub1 = delayedStub(url1, data: testImageData)
-        
+
         let url2 = testURLs[1]
         let stub2 = delayedStub(url2, data: testImageData)
-        
+
         let group = DispatchGroup()
-        
+
         group.enter()
         downloader.downloadImage(with: url1) { result in
             XCTAssertNotNil(result.error)
             XCTAssertTrue(result.error!.isTaskCancelled)
             group.leave()
         }
-        
+
         group.enter()
         downloader.downloadImage(with: url1) { result in
             XCTAssertNotNil(result.error)
             XCTAssertTrue(result.error!.isTaskCancelled)
             group.leave()
         }
-        
+
         group.enter()
         downloader.downloadImage(with: url2) { result in
             XCTAssertNotNil(result.value)
             group.leave()
         }
-        
+
         delay(0.1) {
             self.downloader.cancel(url: url1)
             _ = stub1.go()
             _ = stub2.go()
         }
-        
+
         group.notify(queue: .main) {
             delay(0.1) { exp.fulfill() }
         }
         waitForExpectations(timeout: 3, handler: nil)
     }
-    
+
     // Issue 532 https://github.com/onevcat/Kingfisher/issues/532#issuecomment-305644311
     func testCancelThenRestartSameDownload() {
         let exp = expectation(description: #function)
-        
+
         let url = testURLs[0]
         let stub = delayedStub(url, data: testImageData, length: 123)
 
         let group = DispatchGroup()
-        
+
         group.enter()
         let downloadTask = downloader.downloadImage(
             with: url,
-            progressBlock: { _, _ in XCTFail()})
-        {
+            progressBlock: { _, _ in XCTFail()}) {
             result in
             XCTAssertNotNil(result.error)
             XCTAssertTrue(result.error!.isTaskCancelled)
             group.leave()
         }
-        
+
         XCTAssertNotNil(downloadTask)
-        
+
         downloadTask!.cancel()
         _ = stub.go()
-        
+
         group.enter()
         downloader.downloadImage(with: url) {
             result in
@@ -394,28 +389,28 @@ class ImageDownloaderTests: XCTestCase {
             }
             group.leave()
         }
-        
+
         group.notify(queue: .main) {
             delay(0.1) { exp.fulfill() }
         }
         waitForExpectations(timeout: 3, handler: nil)
     }
-    
+
     func testDownloadTaskNil() {
         modifier.url = nil
         let downloadTask = downloader.downloadImage(with: URL(string: "url")!, options: [.requestModifier(modifier)])
         XCTAssertNil(downloadTask)
     }
-    
+
     func testDownloadWithProcessor() {
         let exp = expectation(description: #function)
-        
+
         let url = testURLs[0]
         stub(url, data: testImageData)
 
         let p = RoundCornerImageProcessor(cornerRadius: 40)
         let roundcornered = testImage.kf.image(withRoundRadius: 40, fit: testImage.kf.size)
-        
+
         downloader.downloadImage(with: url, options: [.processor(p)]) { result in
             XCTAssertNotNil(result.value)
             let image = result.value!.image
@@ -424,10 +419,10 @@ class ImageDownloaderTests: XCTestCase {
             XCTAssertEqual(result.value!.originalData, testImageData)
             exp.fulfill()
         }
-        
+
         waitForExpectations(timeout: 3, handler: nil)
     }
-    
+
     func testDownloadWithDifferentProcessors() {
         let exp = expectation(description: #function)
         let url = testURLs[0]
@@ -438,7 +433,7 @@ class ImageDownloaderTests: XCTestCase {
 
         let p2 = BlurImageProcessor(blurRadius: 3.0)
         let blurred = testImage.kf.blurred(withRadius: 3.0)
-        
+
         let group = DispatchGroup()
 
         group.enter()
@@ -457,14 +452,14 @@ class ImageDownloaderTests: XCTestCase {
         XCTAssertEqual(task1?.sessionTask.task, task2?.sessionTask.task)
 
         _ = stub.go()
-        
+
         group.notify(queue: .main, execute: exp.fulfill)
         waitForExpectations(timeout: 3, handler: nil)
     }
-    
+
     func testDownloadedDataCouldBeModified() {
         let exp = expectation(description: #function)
-        
+
         let url = testURLs[0]
         stub(url, data: testImageData)
 
@@ -504,14 +499,13 @@ class ImageDownloaderTests: XCTestCase {
         waitForExpectations(timeout: 3, handler: nil)
     }
 #endif
-    
+
     func testDownloadTaskTakePriorityOption() {
         let exp = expectation(description: #function)
-        
+
         let url = testURLs[0]
         stub(url, data: testImageData)
-        let task = downloader.downloadImage(with: url, options: [.downloadPriority(URLSessionTask.highPriority)])
-        {
+        let task = downloader.downloadImage(with: url, options: [.downloadPriority(URLSessionTask.highPriority)]) {
             _ in
             exp.fulfill()
         }
@@ -527,11 +521,10 @@ extension ImageDownloaderTests: ImageDownloaderDelegate {
 }
 
 class URLModifier: ImageDownloadRequestModifier {
-    var url: URL? = nil
+    var url: URL?
     func modified(for request: URLRequest) -> URLRequest? {
         var r = request
         r.url = url
         return r
     }
 }
-

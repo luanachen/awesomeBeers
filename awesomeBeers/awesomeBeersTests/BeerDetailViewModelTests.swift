@@ -9,34 +9,35 @@
 import XCTest
 
 class BeerDetailViewModelTests: XCTestCase {
-    
-    var sut: BeerDetailViewModel!
-    
+
+    var viewModel: BeerDetailViewModel!
+
     override func setUp() {
         super.setUp()
-        sut = BeerDetailViewModel()
-        
-        let beer = MockLoader().loadFile()
-        sut.setSelectedBeer(beer: beer.first!)
+
+        guard let beer = MockLoader().loadFile() else { return }
+
+        viewModel = BeerDetailViewModel(beer: beer[0])
+
     }
-    
+
     override func tearDown() {
-        sut = nil
+        viewModel = nil
         super.tearDown()
     }
-    
+
     func testGetSelectedBeerNotNil() {
-        XCTAssertNotNil(sut.getBeer())
+        XCTAssertNotNil(viewModel.getBeer())
     }
-    
+
     func testGetBeerInfCorrectly() {
-        let beer = sut.getBeer()
-        XCTAssertEqual(beer.id, 1)
+        let beer = viewModel.getBeer()
+        XCTAssertEqual(beer.beerId, 1)
         XCTAssertEqual(beer.name, "Buzz")
         XCTAssertEqual(beer.description, "A light, crisp and bitter IPA brewed with English and American hops. A small batch brewed only once.")
         XCTAssertEqual(beer.imageURL, "https://images.punkapi.com/v2/keg.png")
         XCTAssertEqual(beer.abv, 4.5)
         XCTAssertEqual(beer.ibu, 60.0)
     }
-    
+
 }

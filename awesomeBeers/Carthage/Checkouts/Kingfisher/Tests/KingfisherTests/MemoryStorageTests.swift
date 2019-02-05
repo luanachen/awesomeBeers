@@ -176,7 +176,7 @@ class MemoryStorageTests: XCTestCase {
             // Accessing `isCached` does not extend expiration
             XCTAssertTrue(self.storage.isCached(forKey: "1"))
         }
-        
+
         delay(0.8) {
             XCTAssertFalse(self.storage.isCached(forKey: "1"))
             exp.fulfill()
@@ -192,7 +192,7 @@ class MemoryStorageTests: XCTestCase {
         try! storage.store(value: 1, forKey: "1", expiration: .seconds(0.1))
         XCTAssertTrue(storage.isCached(forKey: "1"))
         XCTAssertEqual(self.storage.keys.count, 1)
-        
+
         delay(0.2) {
             XCTAssertFalse(self.storage.isCached(forKey: "1"))
             XCTAssertNil(self.storage.storage.object(forKey: "1"))
