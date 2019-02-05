@@ -61,7 +61,7 @@ public struct KingfisherWrapper<Base> {
 public protocol KingfisherCompatible { }
 
 public extension KingfisherCompatible {
-    
+
     /// Gets a namespace holder for Kingfisher compatible types.
     public var kf: KingfisherWrapper<Self> {
         get { return KingfisherWrapper(self) }

@@ -53,11 +53,11 @@ public enum StorageExpiration {
         case .expired: return .distantPast
         }
     }
-    
+
     var estimatedExpirationSinceNow: Date {
         return estimatedExpirationSince(Date())
     }
-    
+
     var isExpired: Bool {
         return timeInterval <= 0
     }

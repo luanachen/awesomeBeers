@@ -9,29 +9,29 @@
 import Foundation
 
 class BeerListViewModel {
-    
+
     weak var viewModelCoordinatorDelegate: BeerListViewModelCoordinatorDelegate?
     weak var viewDelegate: BeerListViewModelDelegate?
-    
+
     private var beers: [BeerElement]!
     private var errorMessage: String!
-    
+
     var selectedBeer: BeerElement!
-    
+
     init(delegate: BeerListViewModelCoordinatorDelegate) {
         self.viewModelCoordinatorDelegate = delegate
     }
-    
+
     func loadBeers() {
-        
+
         #if DEBUG
         if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil {
             beers = MockLoader().loadFile()
         }
         #endif
-        
+
         self.viewDelegate?.showLoadingIndicator(isLoading: true)
-        
+
         Facade.shared.dataProvider.beerSession.getAllBeers { result in
             switch result {
             case .success(let beers):
@@ -47,24 +47,23 @@ class BeerListViewModel {
             }
         }
     }
-    
+
     func getNumberOfItems() -> Int? {
         return beers != nil ? beers.count : 0
     }
-    
-    func getBeer(for row: Int) -> BeerElement?  {
+
+    func getBeer(for row: Int) -> BeerElement? {
         guard let beers = beers else { return nil }
         return beers[row]
     }
-    
+
     func didSelectRow(_ row: Int) {
         self.selectedBeer = beers[row]
         viewModelCoordinatorDelegate?.didSelect(beer: selectedBeer)
     }
-    
+
     func getErrorMessage() -> String {
         return errorMessage
     }
-    
-}
 
+}

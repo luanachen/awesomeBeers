@@ -36,7 +36,7 @@ class ProcessorCollectionViewController: UICollectionViewController {
             collectionView.reloadData()
         }
     }
-    
+
     var processors: [(ImageProcessor, String)] = [
         (DefaultImageProcessor.default, "Default"),
         (RoundCornerImageProcessor(cornerRadius: 20), "Round Corner"),
@@ -51,7 +51,7 @@ class ProcessorCollectionViewController: UICollectionViewController {
         (DownsamplingImageProcessor(size: CGSize(width: 25, height: 25)), "Downsampling"),
         (BlurImageProcessor(blurRadius: 5) >> RoundCornerImageProcessor(cornerRadius: 20), "Blur + Round Corner")
     ]
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Processor"
@@ -78,7 +78,7 @@ class ProcessorCollectionViewController: UICollectionViewController {
         }
         return cell
     }
-    
+
     override func alertPopup(_ sender: Any) -> UIAlertController {
         let alert = super.alertPopup(sender)
         alert.addAction(UIAlertAction(title: "Processor", style: .default, handler: { _ in

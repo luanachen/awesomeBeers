@@ -9,15 +9,15 @@
 import Foundation
 
 class BeerDetailViewModel {
-    
+
     private var selectedBeer: BeerElement!
-    
+
     init(beer: BeerElement) {
         self.selectedBeer = beer
     }
-    
+
     func getBeer() -> BeerElement {
         return selectedBeer
     }
-    
+
 }

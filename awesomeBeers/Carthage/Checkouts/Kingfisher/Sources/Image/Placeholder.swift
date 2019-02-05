@@ -33,10 +33,10 @@ import UIKit
 /// Represents a placeholder type which could be set while loading as well as
 /// loading finished without getting an image.
 public protocol Placeholder {
-    
+
     /// How the placeholder should be added to a given image view.
     func add(to imageView: ImageView)
-    
+
     /// How the placeholder should be removed from a given image view.
     func remove(from imageView: ImageView)
 }
@@ -57,7 +57,7 @@ extension Image: Placeholder {
 /// To use your customize View type as placeholder, simply let it conforming to 
 /// `Placeholder` by `extension MyView: Placeholder {}`.
 extension Placeholder where Self: View {
-    
+
     /// How the placeholder should be added to a given image view.
     public func add(to imageView: ImageView) {
         imageView.addSubview(self)

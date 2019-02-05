@@ -28,7 +28,7 @@ import UIKit
 import Kingfisher
 
 class NormalLoadingViewController: UICollectionViewController {
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Loading"
@@ -41,21 +41,19 @@ extension NormalLoadingViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return ImageLoader.sampleImageURLs.count
     }
-    
+
     override func collectionView(
         _ collectionView: UICollectionView,
         didEndDisplaying cell: UICollectionViewCell,
-        forItemAt indexPath: IndexPath)
-    {
+        forItemAt indexPath: IndexPath) {
         // This will cancel all unfinished downloading task when the cell disappearing.
         (cell as! ImageCollectionViewCell).cellImageView.kf.cancelDownloadTask()
     }
-    
+
     override func collectionView(
         _ collectionView: UICollectionView,
         willDisplay cell: UICollectionViewCell,
-        forItemAt indexPath: IndexPath)
-    {
+        forItemAt indexPath: IndexPath) {
         let imageView = (cell as! ImageCollectionViewCell).cellImageView!
         imageView.kf.setImage(
             with: ImageLoader.sampleImageURLs[indexPath.row],
@@ -70,11 +68,10 @@ extension NormalLoadingViewController {
             }
         )
     }
-    
+
     override func collectionView(
         _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
-    {
+        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: "collectionViewCell",
             for: indexPath) as! ImageCollectionViewCell

@@ -24,7 +24,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-
 import AppKit
 
 extension KingfisherWrapper where Base: NSButton {
@@ -53,8 +52,7 @@ extension KingfisherWrapper where Base: NSButton {
         placeholder: Image? = nil,
         options: KingfisherOptionsInfo? = nil,
         progressBlock: DownloadProgressBlock? = nil,
-        completionHandler: ((Result<RetrieveImageResult, KingfisherError>) -> Void)? = nil) -> DownloadTask?
-    {
+        completionHandler: ((Result<RetrieveImageResult, KingfisherError>) -> Void)? = nil) -> DownloadTask? {
         var mutatingSelf = self
         guard let source = source else {
             base.image = placeholder
@@ -129,8 +127,7 @@ extension KingfisherWrapper where Base: NSButton {
         placeholder: Image? = nil,
         options: KingfisherOptionsInfo? = nil,
         progressBlock: DownloadProgressBlock? = nil,
-        completionHandler: ((Result<RetrieveImageResult, KingfisherError>) -> Void)? = nil) -> DownloadTask?
-    {
+        completionHandler: ((Result<RetrieveImageResult, KingfisherError>) -> Void)? = nil) -> DownloadTask? {
         return setImage(
             with: resource.map { .network($0) },
             placeholder: placeholder,
@@ -155,8 +152,7 @@ extension KingfisherWrapper where Base: NSButton {
         placeholder: Image? = nil,
         options: KingfisherOptionsInfo? = nil,
         progressBlock: DownloadProgressBlock? = nil,
-        completionHandler: ((Result<RetrieveImageResult, KingfisherError>) -> Void)? = nil) -> DownloadTask?
-    {
+        completionHandler: ((Result<RetrieveImageResult, KingfisherError>) -> Void)? = nil) -> DownloadTask? {
         var mutatingSelf = self
         guard let source = source else {
             base.alternateImage = placeholder
@@ -230,8 +226,7 @@ extension KingfisherWrapper where Base: NSButton {
         placeholder: Image? = nil,
         options: KingfisherOptionsInfo? = nil,
         progressBlock: DownloadProgressBlock? = nil,
-        completionHandler: ((Result<RetrieveImageResult, KingfisherError>) -> Void)? = nil) -> DownloadTask?
-    {
+        completionHandler: ((Result<RetrieveImageResult, KingfisherError>) -> Void)? = nil) -> DownloadTask? {
         return setAlternateImage(
             with: resource.map { .network($0) },
             placeholder: placeholder,
@@ -249,7 +244,6 @@ extension KingfisherWrapper where Base: NSButton {
     }
 }
 
-
 // MARK: - Associated Object
 private var taskIdentifierKey: Void?
 private var imageTaskKey: Void?
@@ -260,7 +254,7 @@ private var alternateImageTaskKey: Void?
 extension KingfisherWrapper where Base: NSButton {
 
     // MARK: Properties
-    
+
     public private(set) var taskIdentifier: Source.Identifier.Value? {
         get {
             let box: Box<Source.Identifier.Value>? = getAssociatedObject(base, &taskIdentifierKey)
@@ -271,7 +265,7 @@ extension KingfisherWrapper where Base: NSButton {
             setRetainedAssociatedObject(base, &taskIdentifierKey, box)
         }
     }
-    
+
     private var imageTask: DownloadTask? {
         get { return getAssociatedObject(base, &imageTaskKey) }
         set { setRetainedAssociatedObject(base, &imageTaskKey, newValue)}
@@ -302,7 +296,6 @@ extension KingfisherWrapper where Base: NSButton {
         get { return nil }
         set { }
     }
-
 
     /// Gets the image URL bound to this button.
     @available(*, obsoleted: 5.0, message: "Use `alternateTaskIdentifier` instead to identify a setting task.")

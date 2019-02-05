@@ -15,14 +15,19 @@ protocol EndpointType {
 
 extension EndpointType {
     var components: URLComponents {
-        var components = URLComponents(string: base)!
-        components.path = path
-        return components
+        if var components = URLComponents(string: base) {
+            components.path = path
+            return components
+        }
+        fatalError("Fail to set components!")
+
     }
-    
+
     var request: URLRequest {
-        let url = components.url!
-        return URLRequest(url: url)
+        if let url = components.url {
+            return URLRequest(url: url)
+        }
+        fatalError("Failed to set URL!")
     }
-    
+
 }
