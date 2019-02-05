@@ -9,42 +9,54 @@
 import UIKit
 import Kingfisher
 
+private enum Constants {
+    static let AccessibilityIdentifier = "beerListView"
+    static let NavigationTitle = "Awesome Beers"
+}
+
+private enum ViewConstants {
+    static let IndicatorDimensions: CGFloat = 40
+}
+
 class BeerListViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    private var viewModel = BeerListViewModel()
+    var viewModel: BeerListViewModel! {
+        didSet {
+            viewModel.viewDelegate = self
+        }
+    }
     
     private var indicator = UIActivityIndicatorView()
     
     override func loadView() {
         super.loadView()
-        
         collectionView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.accessibilityIdentifier = "beerListView"
-        
-        setupCollectionViewLayout()
-        
-        viewModel.delegate = self
+        navigationItem.title = Constants.NavigationTitle
+        view.accessibilityIdentifier = Constants.AccessibilityIdentifier
         
         viewModel.loadBeers()
-        
-        setupView()
-        
-        indicator.startAnimating()
+        setupCollectionView()
+        setupIndicatorView()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     // MARK: - Private func
     
-    fileprivate func setupCollectionViewLayout() {
+    private func setupCollectionView() {
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.alwaysBounceVertical = true
+        collectionView.backgroundColor = .white
+        collectionView.register(BeerListCell.self, forCellWithReuseIdentifier: BeerListCell.identifier)
+        
         collectionView.collectionViewLayout = PinterestLayout()
         
         if let layout = collectionView?.collectionViewLayout as? PinterestLayout {
@@ -52,19 +64,13 @@ class BeerListViewController: UICollectionViewController, UICollectionViewDelega
         }
     }
     
-    private func setupView() {
-        navigationItem.title = "Awesome Beers"
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.alwaysBounceVertical = true
-        collectionView.backgroundColor = .white
-        collectionView.register(BeerLisCell.self, forCellWithReuseIdentifier: BeerLisCell.identifier)
-        
-        indicator = UIActivityIndicatorView(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 40, height: 40)))
+    private func setupIndicatorView() {
+        indicator = UIActivityIndicatorView(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: ViewConstants.IndicatorDimensions, height: ViewConstants.IndicatorDimensions)))
         indicator.style = .gray
         indicator.center = collectionView.center
         indicator.hidesWhenStopped = true
         self.view.addSubview(indicator)
+        indicator.startAnimating()
     }
     
     private func showError(message: String) {
@@ -82,7 +88,7 @@ class BeerListViewController: UICollectionViewController, UICollectionViewDelega
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BeerLisCell.identifier, for: indexPath) as? BeerLisCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BeerListCell.identifier, for: indexPath) as? BeerListCell else { return UICollectionViewCell() }
         
         cell.bindView(with: viewModel, for: indexPath.item)
         return cell
@@ -91,11 +97,7 @@ class BeerListViewController: UICollectionViewController, UICollectionViewDelega
     // MARK: - UICollectionView Delegate
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let beerDetailVC = BeerDetailViewController()
-        if let selectedBeer = self.viewModel.getBeer(for: indexPath.item) {
-            beerDetailVC.viewModel.setSelectedBeer(beer: selectedBeer)
-        }
-        navigationController?.pushViewController(beerDetailVC, animated: true)
+        viewModel.didSelectRow(indexPath.item)
     }
     
     // MARK: - UICollectionViewDelegateFlowLayout

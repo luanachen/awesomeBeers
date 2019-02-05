@@ -9,13 +9,13 @@
 import Foundation
 
 class BeerDetailViewModel {
-
+    
     private var selectedBeer: BeerElement!
-
-    func setSelectedBeer(beer: BeerElement) {
+    
+    init(beer: BeerElement) {
         self.selectedBeer = beer
     }
-
+    
     func getBeer() -> BeerElement {
         return selectedBeer
     }

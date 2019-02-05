@@ -9,24 +9,27 @@
 import UIKit
 import Kingfisher
 
+private enum Constants {
+    static let AccessibilityIdentifier = "beerDetailView"
+}
+
 class BeerDetailViewController: UIViewController {
     
     let detailView: DetailView!
+    var viewModel: BeerDetailViewModel!
     
-    let viewModel = BeerDetailViewModel()
-    
-    
-    init() {
+    init(viewModel: BeerDetailViewModel) {
         detailView = DetailView()
-        
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.accessibilityIdentifier = "beerDetailView"
-
+        view.accessibilityIdentifier = Constants.AccessibilityIdentifier
+        
         setupView()
+        
         bindView()
     }
     
@@ -45,7 +48,7 @@ class BeerDetailViewController: UIViewController {
         } else {
             detailView.anchor(top: topLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
         }
-    
+        
     }
     
     private func bindView() {
@@ -56,6 +59,4 @@ class BeerDetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
 }
-
