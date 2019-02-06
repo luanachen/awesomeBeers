@@ -1,3 +1,5 @@
+[![Build Status](https://app.bitrise.io/app/5b5ae8059712cc92/status.svg?token=RIj8ZHbymZBLZhGJnDloZw&branch=master)](https://app.bitrise.io/app/5b5ae8059712cc92)
+
 # AwesomeBeers
 ## Requirements
 
