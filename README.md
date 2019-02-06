@@ -24,7 +24,7 @@ When possible, AwesomeBeers follows MVVM-C architecture. View controllers send e
 
 ## Project structure
 
-The whole project is structured in modules where each module represents one screen in the app. Each scene consits of one `*ViewController`, `*ViewModel`, and a `*view` file.
+The whole project is structured in modules where each module represents one screen in the app. Each module consists of one `*ViewController`, `*ViewModel`, and a `*view` file.
 
 All the other files are structured in their particular category, e.g. `Model`, `Networking`, `Extensions`, etc.
 
