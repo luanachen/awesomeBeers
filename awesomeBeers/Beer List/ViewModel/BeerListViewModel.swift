@@ -7,13 +7,16 @@
 //
 
 import Foundation
+import RxSwift
 
 class BeerListViewModel {
 
     weak var viewModelCoordinatorDelegate: BeerListViewModelCoordinatorDelegate?
     weak var viewDelegate: BeerListViewModelDelegate?
 
-    private var beers: [BeerElement]!
+    let bag = DisposeBag()
+
+    private var beers = PublishSubject<[BeerElement]>()
     private var errorMessage: String!
 
     var selectedBeer: BeerElement!
@@ -26,7 +29,7 @@ class BeerListViewModel {
 
         #if DEBUG
         if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil {
-            beers = MockLoader().loadFile()
+//            beer = MockLoader().loadFile()
         }
         #endif
 
