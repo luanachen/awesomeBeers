@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 
 class BeerListViewModel {
 
@@ -16,8 +17,17 @@ class BeerListViewModel {
 
     let bag = DisposeBag()
 
-    private var beers = PublishSubject<[BeerElement]>()
-    private var errorMessage: String!
+    private var beers = BehaviorRelay<[BeerElement]>(value: [])
+
+    private var errorMessage = BehaviorRelay<String>(value: "")
+
+    lazy var myBeers: Observable<[BeerElement]> = {
+        return beers.asObservable()
+    }()
+
+    lazy var myError: Observable<String> = {
+        return errorMessage.asObservable()
+    }()
 
     var selectedBeer: BeerElement!
 
@@ -29,44 +39,38 @@ class BeerListViewModel {
 
         #if DEBUG
         if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil {
-//            beer = MockLoader().loadFile()
+//            beers = MockLoader().loadFile()
         }
         #endif
 
-        self.viewDelegate?.showLoadingIndicator(isLoading: true)
+//        self.viewDelegate?.showLoadingIndicator(isLoading: true)
 
-        Facade.shared.dataProvider.beerSession.getAllBeers { result in
-            switch result {
-            case .success(let beers):
-                guard let beers = beers else { return }
-                self.beers = beers
-                self.viewDelegate?.didLoad(success: true)
-                self.viewDelegate?.showLoadingIndicator(isLoading: false)
-            case .failure(let error):
-                self.errorMessage = error.localizedDescription
-                self.viewDelegate?.didLoad(success: false)
-                self.viewDelegate?.showLoadingIndicator(isLoading: false)
-                print("the error \(error)")
-            }
-        }
+        Facade.shared.dataProvider.beerSession.getAllBeers().subscribe(onNext: { (beers) in
+            self.beers.accept(beers)
+        }, onError: { (error) in
+            self.errorMessage.accept(error.localizedDescription)
+        })
+        .disposed(by: bag)
     }
 
-    func getNumberOfItems() -> Int? {
-        return beers != nil ? beers.count : 0
+    func getNumberOfItems() -> Int {
+        return beers.value.count
     }
 
-    func getBeer(for row: Int) -> BeerElement? {
-        guard let beers = beers else { return nil }
-        return beers[row]
+    func getBeer(for row: Int) -> Observable<BeerElement> {
+        return Observable.create({  observer -> Disposable in
+            observer.onNext(self.beers.value[row])
+            return Disposables.create()
+        })
     }
 
     func didSelectRow(_ row: Int) {
-        self.selectedBeer = beers[row]
+        self.selectedBeer = beers.value[row]
         viewModelCoordinatorDelegate?.didSelect(beer: selectedBeer)
     }
 
     func getErrorMessage() -> String {
-        return errorMessage
+        return errorMessage.value
     }
 
 }

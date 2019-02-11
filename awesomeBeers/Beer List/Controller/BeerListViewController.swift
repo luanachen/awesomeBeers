@@ -7,6 +7,7 @@
 //
 
 import Kingfisher
+import RxSwift
 import UIKit
 
 private enum Constants {
@@ -25,6 +26,8 @@ class BeerListViewController: UICollectionViewController, UICollectionViewDelega
             viewModel.viewDelegate = self
         }
     }
+
+    let bag = DisposeBag()
 
     private var indicator = UIActivityIndicatorView()
 
@@ -84,7 +87,7 @@ class BeerListViewController: UICollectionViewController, UICollectionViewDelega
     // MARK: - UICollectiionView Data Source
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.getNumberOfItems() ?? 0
+        return viewModel.getNumberOfItems()
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -140,7 +143,16 @@ extension BeerListViewController: BeerListViewModelDelegate {
 extension BeerListViewController: PinterestLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
         let imageView = UIImageView()
-        imageView.kf.setImage(with: URL(string: viewModel.getBeer(for: indexPath.item)?.imageURL ?? ""), placeholder: #imageLiteral(resourceName: "placeholder"))
+        var imageString = ""
+
+        viewModel.getBeer(for: indexPath.item).subscribe(onNext: { beer in
+            imageString = beer.imageURL
+        })
+        .disposed(by: bag)
+
+        let imageUrl = URL(string: imageString)
+
+        imageView.kf.setImage(with: imageUrl, placeholder: UIImage(named: "placeholder"))
         guard let height = imageView.image?.size.height else { return 0 }
         return height * CGFloat(0.4)
     }

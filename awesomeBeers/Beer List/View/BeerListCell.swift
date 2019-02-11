@@ -7,11 +7,14 @@
 //
 
 import Kingfisher
+import RxSwift
 import UIKit
 
 class BeerListCell: UICollectionViewCell {
 
     static var identifier = "BeerListCell"
+
+    let bag = DisposeBag()
 
     weak var nameLabel: UILabel!
     weak var imageView: UIImageView!
@@ -80,14 +83,15 @@ class BeerListCell: UICollectionViewCell {
     }
 
     func bindView(with viewModel: BeerListViewModel, for row: Int) {
-        guard let beer = viewModel.getBeer(for: row) else { return }
 
-        nameLabel.text = beer.name
-        abvLabel.text = "abv: \(beer.abv)"
-
-        let imageURL = URL(string: beer.imageURL)
-        imageView.kf.indicatorType = .activity
-        imageView.kf.setImage(with: imageURL, placeholder: #imageLiteral(resourceName: "placeholder"))
+        viewModel.getBeer(for: row).subscribe(onNext: { beer in
+            self.nameLabel.text = beer.name
+            self.abvLabel.text = "abv: \(beer.abv)"
+            let imageURL = URL(string: beer.imageURL)
+            self.self.imageView.kf.indicatorType = .activity
+            self.imageView.kf.setImage(with: imageURL, placeholder: #imageLiteral(resourceName: "placeholder"))
+        })
+        .disposed(by: bag)
     }
 
 }
