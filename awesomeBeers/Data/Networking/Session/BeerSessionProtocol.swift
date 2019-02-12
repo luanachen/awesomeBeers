@@ -7,7 +7,8 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol BeerSessionProtocol {
-    func getAllBeers(completion: @escaping (Result<[BeerElement]?, APIError>) -> Void)
+    func getAllBeers() -> Observable<[BeerElement]>
 }

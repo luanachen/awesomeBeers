@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RxSwift
 
 class BeerSession: BeerSessionProtocol, APIClient {
 
@@ -20,15 +21,28 @@ class BeerSession: BeerSessionProtocol, APIClient {
         self.init(configuration: .default)
     }
 
-    func getAllBeers(completion: @escaping (Result<[BeerElement]?, APIError>) -> Void) {
+    func getAllBeers() -> Observable<[BeerElement]> {
         let endPoint = BeerEndpoint.allBeers
         var request = endPoint.request
         request.httpMethod = HTTPMethod.get.rawValue
 
-        fetch(with: request, decode: { json -> [BeerElement]? in
-            guard let beerResult = json as? [BeerElement] else { return nil }
-            return beerResult
-        }, completion: completion)
+        return Observable.create({ observer -> Disposable in
+
+            self.fetch(with: request, decode: { json -> [BeerElement]? in
+
+                guard let beerResult = json as? [BeerElement] else { return nil }
+                return beerResult
+
+            }, completion: { (result) in
+                switch result {
+                case .success(let beers):
+                    observer.onNext(beers)
+                case .failure(let error):
+                    observer.onError(error)
+                }
+            })
+            return Disposables.create()
+        })
     }
 
 }
