@@ -43,7 +43,7 @@ class BeerListViewModel {
         }
         #endif
 
-        self.viewDelegate?.showLoadingIndicator(isLoading: true)
+//        self.viewDelegate?.showLoadingIndicator(isLoading: true)
 
         Facade.shared.dataProvider.beerSession.getAllBeers().subscribe(onNext: { (beers) in
             self.viewDelegate?.didLoad(success: true)
