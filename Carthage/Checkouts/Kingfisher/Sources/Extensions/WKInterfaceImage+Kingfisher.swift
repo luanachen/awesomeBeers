@@ -24,6 +24,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+#if canImport(WatchKit)
+
 import WatchKit
 
 extension KingfisherWrapper where Base: WKInterfaceImage {
@@ -50,7 +52,7 @@ extension KingfisherWrapper where Base: WKInterfaceImage {
     @discardableResult
     public func setImage(
         with source: Source?,
-        placeholder: Image? = nil,
+        placeholder: KFCrossPlatformImage? = nil,
         options: KingfisherOptionsInfo? = nil,
         progressBlock: DownloadProgressBlock? = nil,
         completionHandler: ((Result<RetrieveImageResult, KingfisherError>) -> Void)? = nil) -> DownloadTask?
@@ -63,35 +65,55 @@ extension KingfisherWrapper where Base: WKInterfaceImage {
             return nil
         }
         
-        let options = KingfisherParsedOptionsInfo(KingfisherManager.shared.defaultOptions + (options ?? .empty))
+        var options = KingfisherParsedOptionsInfo(KingfisherManager.shared.defaultOptions + (options ?? .empty))
         if !options.keepCurrentImageWhileLoading {
             base.setImage(placeholder)
         }
         
-        let issuedTaskIdentifier = Source.Identifier.next()
-        mutatingSelf.taskIdentifier = issuedTaskIdentifier
+        let issuedIdentifier = Source.Identifier.next()
+        mutatingSelf.taskIdentifier = issuedIdentifier
+        
+        if let block = progressBlock {
+            options.onDataReceived = (options.onDataReceived ?? []) + [ImageLoadingProgressSideEffect(block)]
+        }
+        
+        if let provider = ImageProgressiveProvider(options, refresh: { image in
+            self.base.setImage(image)
+        }) {
+            options.onDataReceived = (options.onDataReceived ?? []) + [provider]
+        }
+        
+        options.onDataReceived?.forEach {
+            $0.onShouldApply = { issuedIdentifier == self.taskIdentifier }
+        }
+        
         let task = KingfisherManager.shared.retrieveImage(
             with: source,
             options: options,
-            progressBlock: { receivedSize, totalSize in
-                guard issuedTaskIdentifier == self.taskIdentifier else { return }
-                progressBlock?(receivedSize, totalSize)
-            },
+            downloadTaskUpdated: { mutatingSelf.imageTask = $0 },
             completionHandler: { result in
                 CallbackQueue.mainCurrentOrAsync.execute {
-                    guard issuedTaskIdentifier == self.taskIdentifier else {
-                        let error = KingfisherError.imageSettingError(
-                            reason: .notCurrentSourceTask(result: result.value, error: result.error, source: source))
+                    guard issuedIdentifier == self.taskIdentifier else {
+                        let reason: KingfisherError.ImageSettingErrorReason
+                        do {
+                            let value = try result.get()
+                            reason = .notCurrentSourceTask(result: value, error: nil, source: source)
+                        } catch {
+                            reason = .notCurrentSourceTask(result: nil, error: error, source: source)
+                        }
+                        let error = KingfisherError.imageSettingError(reason: reason)
                         completionHandler?(.failure(error))
                         return
                     }
                     
                     mutatingSelf.imageTask = nil
+                    mutatingSelf.taskIdentifier = nil
                     
                     switch result {
                     case .success(let value):
                         self.base.setImage(value.image)
                         completionHandler?(result)
+                        
                     case .failure:
                         if let image = options.onFailureImage {
                             self.base.setImage(image)
@@ -99,7 +121,8 @@ extension KingfisherWrapper where Base: WKInterfaceImage {
                         completionHandler?(result)
                     }
                 }
-        })
+            }
+        )
         
         mutatingSelf.imageTask = task
         return task
@@ -125,7 +148,7 @@ extension KingfisherWrapper where Base: WKInterfaceImage {
     @discardableResult
     public func setImage(
         with resource: Resource?,
-        placeholder: Image? = nil,
+        placeholder: KFCrossPlatformImage? = nil,
         options: KingfisherOptionsInfo? = nil,
         progressBlock: DownloadProgressBlock? = nil,
         completionHandler: ((Result<RetrieveImageResult, KingfisherError>) -> Void)? = nil) -> DownloadTask?
@@ -172,9 +195,11 @@ extension KingfisherWrapper where Base: WKInterfaceImage {
 
 extension KingfisherWrapper where Base: WKInterfaceImage {
     /// Gets the image URL bound to this image view.
-    @available(*, obsoleted: 5.0, message: "Use `taskIdentifier` instead to identify a setting task.")
+    @available(*, deprecated, message: "Use `taskIdentifier` instead to identify a setting task.")
     public private(set) var webURL: URL? {
         get { return nil }
         set { }
     }
 }
+
+#endif

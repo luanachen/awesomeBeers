@@ -131,6 +131,28 @@ class DiskStorageTests: XCTestCase {
         waitForExpectations(timeout: 2, handler: nil)
     }
 
+    func testNotExtendExpirationByAccessing() {
+
+        let exp = expectation(description: #function)
+        let now = Date()
+        try! storage.store(value: "1", forKey: "1", expiration: .seconds(2))
+        XCTAssertTrue(storage.isCached(forKey: "1"))
+        XCTAssertFalse(storage.isCached(forKey: "1", referenceDate: now.addingTimeInterval(3)))
+
+        delay(1) {
+            let v = try! self.storage.value(forKey: "1", extendingExpiration: .none)
+            XCTAssertNotNil(v)
+            // The meta extending happens on its own queue.
+            self.storage.metaChangingQueue.async {
+                XCTAssertFalse(self.storage.isCached(forKey: "1", referenceDate: now.addingTimeInterval(3)))
+                XCTAssertFalse(self.storage.isCached(forKey: "1", referenceDate: now.addingTimeInterval(10)))
+                exp.fulfill()
+            }
+        }
+
+        waitForExpectations(timeout: 2, handler: nil)
+    }
+
     func testRemoveExpired() {
 
         let expiration = StorageExpiration.seconds(1)
@@ -154,6 +176,22 @@ class DiskStorageTests: XCTestCase {
         let urls = try! storage.removeSizeExceededValues()
         XCTAssertTrue(urls.count < count)
         XCTAssertTrue(urls.count > 0)
+    }
+
+    func testConfigUsesHashedFileName() {
+        let key = "test"
+
+        // hashed fileName
+        storage.config.usesHashedFileName = true
+        let hashedFileName = storage.cacheFileName(forKey: key)
+        XCTAssertNotEqual(hashedFileName, key)
+        // validation md5 hash of the key
+        XCTAssertEqual(hashedFileName, key.kf.md5)
+
+        // fileName without hash
+        storage.config.usesHashedFileName = false
+        let originalFileName = storage.cacheFileName(forKey: key)
+        XCTAssertEqual(originalFileName, key)
     }
 
     func testFileMetaOrder() {
