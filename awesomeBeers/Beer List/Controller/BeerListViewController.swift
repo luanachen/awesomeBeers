@@ -140,7 +140,7 @@ extension BeerListViewController: BeerListViewModelDelegate {
 extension BeerListViewController: PinterestLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
         let imageView = UIImageView()
-        imageView.kf.setImage(with: URL(string: viewModel.getBeer(for: indexPath.item)?.imageURL ?? ""), placeholder: #imageLiteral(resourceName: "placeholder"))
+        imageView.kf.setImage(with: URL(string: viewModel.getBeer(for: indexPath.item)?.imageUrl ?? ""), placeholder: #imageLiteral(resourceName: "placeholder"))
         guard let height = imageView.image?.size.height else { return 0 }
         return height * CGFloat(0.4)
     }

@@ -91,7 +91,7 @@ class DetailView: UIView {
     }
 
     func bindView(viewModel: BeerDetailViewModel) {
-        imageView.kf.setImage(with: URL(string: viewModel.getBeer().imageURL))
+        imageView.kf.setImage(with: URL(string: viewModel.getBeer().imageUrl))
         descriptionLabel.text = viewModel.getBeer().description
         taglineLabel.text = viewModel.getBeer().tagline
         abvLabel.text = "abv: \(viewModel.getBeer().abv)"

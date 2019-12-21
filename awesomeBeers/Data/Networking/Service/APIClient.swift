@@ -33,7 +33,9 @@ extension APIClient {
             guard let data = data else { completion(nil, .invalidData); return }
 
             do {
-                let genericModel = try JSONDecoder().decode(decodingType, from: data)
+                let decoder = JSONDecoder()
+                let genericModel = try decoder.decode(decodingType, from: data)
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
                 completion(genericModel, nil)
             } catch let err {
                 completion(nil, .jsonConversionFailure(description: "\(err.localizedDescription)"))

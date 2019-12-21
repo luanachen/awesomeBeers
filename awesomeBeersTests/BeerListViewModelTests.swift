@@ -38,7 +38,7 @@ class BeerListViewModelTests: XCTestCase {
         XCTAssertEqual(beer.beerId, 1)
         XCTAssertEqual(beer.name, "Buzz")
         XCTAssertEqual(beer.description, "A light, crisp and bitter IPA brewed with English and American hops. A small batch brewed only once.")
-        XCTAssertEqual(beer.imageURL, "https://images.punkapi.com/v2/keg.png")
+        XCTAssertEqual(beer.imageUrl, "https://images.punkapi.com/v2/keg.png")
     }
 
 }

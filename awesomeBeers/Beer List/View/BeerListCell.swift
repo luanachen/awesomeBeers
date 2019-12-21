@@ -85,7 +85,7 @@ class BeerListCell: UICollectionViewCell {
         nameLabel.text = beer.name
         abvLabel.text = "abv: \(beer.abv)"
 
-        let imageURL = URL(string: beer.imageURL)
+        let imageURL = URL(string: beer.imageUrl)
         imageView.kf.indicatorType = .activity
         imageView.kf.setImage(with: imageURL, placeholder: #imageLiteral(resourceName: "placeholder"))
     }
