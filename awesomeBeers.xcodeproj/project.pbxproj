@@ -471,10 +471,12 @@
 					};
 					0FE93645220863DD00EC1F93 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1120;
 						TestTargetID = 0FE93631220863DB00EC1F93;
 					};
 					0FE93650220863DD00EC1F93 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1120;
 						TestTargetID = 0FE93631220863DB00EC1F93;
 					};
 				};
@@ -822,7 +824,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = lccj.awesomeBeersTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/awesomeBeers.app/awesomeBeers";
 			};
@@ -842,7 +844,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = lccj.awesomeBeersTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/awesomeBeers.app/awesomeBeers";
 			};
@@ -861,7 +863,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = lccj.awesomeBeersUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = awesomeBeers;
 			};
@@ -880,7 +882,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = lccj.awesomeBeersUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = awesomeBeers;
 			};

@@ -27,7 +27,7 @@ extension APIClient {
             guard let data = data else { completion(nil, .invalidData); return }
             
             let output = String(data: data, encoding: String.Encoding.utf8)
-            print("output ", output! as Any)
+            print("output ", output as Any)
             
             do {
                 let decoder = JSONDecoder()
