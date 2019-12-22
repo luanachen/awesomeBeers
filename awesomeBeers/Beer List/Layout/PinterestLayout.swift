@@ -1,10 +1,3 @@
-//
-//  PinterestLayout.swift
-//  Pinterest
-//
-//  Created by Luana Chen on 19/12/18.
-//  Copyright © 2018 Razeware LLC. All rights reserved.
-//
 // insipired by: https://www.raywenderlich.com/392-uicollectionview-custom-layout-tutorial-pinterest
 
 import UIKit

@@ -1,11 +1,3 @@
-//
-//  BeerListViewModel.swift
-//  awesomeBeers
-//
-//  Created by Luana Chen on 04/02/19.
-//  Copyright © 2019 Luana Chen. All rights reserved.
-//
-
 import Foundation
 
 class BeerListViewModel {

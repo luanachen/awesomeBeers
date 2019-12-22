@@ -1,10 +1,3 @@
-//
-//  UIView+.swift
-//  awesomeBeers
-//
-//  Created by Luana Chen on 04/02/19.
-//  Copyright © 2019 Luana Chen. All rights reserved.
-//
 // inspired by: https://www.letsbuildthatapp.com/course_video?id=1032
 
 import UIKit
