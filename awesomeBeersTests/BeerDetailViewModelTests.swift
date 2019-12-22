@@ -6,11 +6,8 @@ class BeerDetailViewModelTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-
         guard let beer = MockLoader().loadFile() else { return }
-
         viewModel = BeerDetailViewModel(beer: beer[0])
-
     }
 
     override func tearDown() {

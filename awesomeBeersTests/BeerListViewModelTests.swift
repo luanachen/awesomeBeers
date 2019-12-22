@@ -19,12 +19,6 @@ class BeerListViewModelTests: XCTestCase {
         XCTAssertNotNil(sut.getNumberOfItems())
     }
 
-    func testBeerNameAtFirstIndexEqualToBuzz() {
-        let beer = sut.getBeer(for: 0)
-
-        XCTAssertEqual(beer?.name, "Buzz")
-    }
-
     func testGetBeerInfCorrectly() {
         guard let beer = sut.getBeer(for: 0) else { return }
         XCTAssertEqual(beer.beerId, 1)
@@ -36,6 +30,7 @@ class BeerListViewModelTests: XCTestCase {
 }
 
 extension BeerListViewModelTests: BeerListViewModelCoordinatorDelegate {
-    func didSelect(beer: BeerElement) {
+    func didSelect(beer: Beer) {
+        // TODO: test delegate
     }
 }
