@@ -1,35 +1,35 @@
 import UIKit
 
 class BeerListCoordinator: CoordinatorProtocol {
-
+    
     var navigation: UINavigationController?
-
-    var beerListViewModel: BeerListViewModel?
-    var beerListViewController: BeerListViewController?
-
-    var beerDetailViewModel: BeerDetailViewModel?
-    var beerDetailViewController: BeerDetailViewController?
 
     init(navigation: UINavigationController) {
         self.navigation = navigation
     }
-
+    
     func start() {
-        beerListViewModel = BeerListViewModel(delegate: self)
-        beerListViewController = BeerListViewController(collectionViewLayout: UICollectionViewFlowLayout())
-        beerListViewController?.viewModel = beerListViewModel
-        guard let viewController = beerListViewController else { return }
+        let viewController = createBeerListViewController()
         navigation?.pushViewController(viewController, animated: true)
+    }
+    
+    private func createBeerListViewController() -> BeerListViewController {
+        let viewModel = BeerListViewModel(delegate: self)
+        let viewController = BeerListViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        viewController.viewModel = viewModel
+        return viewController
+    }
+    
+    private func createBeerDetailViewController(beer: Beer) -> BeerDetailViewController {
+        let viewModel = BeerDetailViewModel(beer: beer)
+        let viewController = BeerDetailViewController(viewModel: viewModel)
+        return viewController
     }
 }
 
 extension BeerListCoordinator: BeerListViewModelCoordinatorDelegate {
     func didSelect(beer: Beer) {
-        beerDetailViewModel = BeerDetailViewModel(beer: beer)
-
-        guard let viewModel = beerDetailViewModel else { return }
-        beerDetailViewController = BeerDetailViewController(viewModel: viewModel)
-        guard let viewController = beerDetailViewController else { return }
+        let viewController = createBeerDetailViewController(beer: beer)
         navigation?.pushViewController(viewController, animated: true)
     }
 }

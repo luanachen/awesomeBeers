@@ -9,8 +9,7 @@ struct Beer: Decodable {
 
     enum CodingKeys: String, CodingKey {
         case beerId = "id"
-        case imageUrl = "imageUrl"
-        case name, tagline, description, abv, ibu
+        case imageUrl, name, tagline, description, abv, ibu
     }
 }
 

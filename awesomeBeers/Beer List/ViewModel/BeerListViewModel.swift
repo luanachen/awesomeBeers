@@ -5,10 +5,8 @@ class BeerListViewModel {
     weak var viewModelCoordinatorDelegate: BeerListViewModelCoordinatorDelegate?
     weak var viewDelegate: BeerListViewModelDelegate?
 
-    private var beers: [Beer]!
-    private var errorMessage: String!
-
-    var selectedBeer: Beer!
+    private var beers: [Beer]?
+    private var errorMessage: String?
 
     init(delegate: BeerListViewModelCoordinatorDelegate) {
         self.viewModelCoordinatorDelegate = delegate
@@ -40,8 +38,8 @@ class BeerListViewModel {
         }
     }
 
-    func getNumberOfItems() -> Int? {
-        return beers != nil ? beers.count : 0
+    func getNumberOfItems() -> Int {
+        return beers?.count ?? 0
     }
 
     func getBeer(for row: Int) -> Beer? {
@@ -50,12 +48,12 @@ class BeerListViewModel {
     }
 
     func didSelectRow(_ row: Int) {
-        self.selectedBeer = beers[row]
+        guard let selectedBeer = beers?[row] else { return }
         viewModelCoordinatorDelegate?.didSelect(beer: selectedBeer)
     }
 
     func getErrorMessage() -> String {
-        return errorMessage
+        return errorMessage ?? "Ops, something is wrong..."
     }
 
 }
