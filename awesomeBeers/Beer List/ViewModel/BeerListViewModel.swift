@@ -13,10 +13,10 @@ class BeerListViewModel {
     weak var viewModelCoordinatorDelegate: BeerListViewModelCoordinatorDelegate?
     weak var viewDelegate: BeerListViewModelDelegate?
 
-    private var beers: [BeerElement]!
+    private var beers: [Beer]!
     private var errorMessage: String!
 
-    var selectedBeer: BeerElement!
+    var selectedBeer: Beer!
 
     init(delegate: BeerListViewModelCoordinatorDelegate) {
         self.viewModelCoordinatorDelegate = delegate
@@ -52,7 +52,7 @@ class BeerListViewModel {
         return beers != nil ? beers.count : 0
     }
 
-    func getBeer(for row: Int) -> BeerElement? {
+    func getBeer(for row: Int) -> Beer? {
         guard let beers = beers else { return nil }
         return beers[row]
     }

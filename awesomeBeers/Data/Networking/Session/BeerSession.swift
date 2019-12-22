@@ -20,13 +20,13 @@ class BeerSession: BeerSessionProtocol, APIClient {
         self.init(configuration: .default)
     }
 
-    func getAllBeers(completion: @escaping (Result<[BeerElement]?, APIError>) -> Void) {
+    func getAllBeers(completion: @escaping (Result<[Beer]?, APIError>) -> Void) {
         let endPoint = BeerEndpoint.allBeers
         var request = endPoint.request
         request.httpMethod = HTTPMethod.get.rawValue
 
-        fetch(with: request, decode: { json -> [BeerElement]? in
-            guard let beerResult = json as? [BeerElement] else { return nil }
+        fetch(with: request, decode: { json -> [Beer]? in
+            guard let beerResult = json as? [Beer] else { return nil }
             return beerResult
         }, completion: completion)
     }

@@ -1,10 +1,6 @@
 import Foundation
 
-struct BeerResult: Decodable {
-    let beer: [BeerElement]?
-}
-
-struct BeerElement: Decodable {
+struct Beer: Decodable {
     let beerId: Int
     let name, tagline, description: String
     let imageUrl: String
@@ -13,7 +9,7 @@ struct BeerElement: Decodable {
 
     enum CodingKeys: String, CodingKey {
         case beerId = "id"
-        case imageUrl = "image_url"
+        case imageUrl = "imageUrl"
         case name, tagline, description, abv, ibu
     }
 }

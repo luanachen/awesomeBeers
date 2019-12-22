@@ -10,13 +10,13 @@ import Foundation
 
 class BeerDetailViewModel {
 
-    private var selectedBeer: BeerElement!
+    private var selectedBeer: Beer!
 
-    init(beer: BeerElement) {
+    init(beer: Beer) {
         self.selectedBeer = beer
     }
 
-    func getBeer() -> BeerElement {
+    func getBeer() -> Beer {
         return selectedBeer
     }
 

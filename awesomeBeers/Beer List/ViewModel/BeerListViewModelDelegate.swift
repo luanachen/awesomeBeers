@@ -16,5 +16,5 @@ protocol BeerListViewModelDelegate: class {
 
 protocol BeerListViewModelCoordinatorDelegate: class {
 
-    func didSelect(beer: BeerElement)
+    func didSelect(beer: Beer)
 }

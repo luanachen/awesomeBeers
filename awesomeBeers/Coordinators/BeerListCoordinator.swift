@@ -24,7 +24,7 @@ class BeerListCoordinator: CoordinatorProtocol {
 }
 
 extension BeerListCoordinator: BeerListViewModelCoordinatorDelegate {
-    func didSelect(beer: BeerElement) {
+    func didSelect(beer: Beer) {
         beerDetailViewModel = BeerDetailViewModel(beer: beer)
 
         guard let viewModel = beerDetailViewModel else { return }
