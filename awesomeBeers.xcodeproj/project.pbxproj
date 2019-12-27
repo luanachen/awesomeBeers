@@ -47,7 +47,6 @@
 		0F2A1CB22209E11800294DC9 /* BeerListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1CB12209E11800294DC9 /* BeerListCoordinator.swift */; };
 		0F80C16E23B5941F000D6CD0 /* BeerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9367F2208712D00EC1F93 /* BeerListViewController.swift */; };
 		0F80C16F23B5942E000D6CD0 /* BeerListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1CB12209E11800294DC9 /* BeerListCoordinator.swift */; };
-		0F80C17023B59497000D6CD0 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F8E98F123AE99D80001487B /* Kingfisher.framework */; };
 		0F80C17123B594B4000D6CD0 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1CAE2209E0B900294DC9 /* AppCoordinator.swift */; };
 		0F80C17223B594B6000D6CD0 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1CAC2209E08700294DC9 /* CoordinatorProtocol.swift */; };
 		0F80C17323B594D0000D6CD0 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C6C2209B2E900294DC9 /* DetailView.swift */; };
@@ -55,8 +54,6 @@
 		0F80C17523B59511000D6CD0 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9367122086BA200EC1F93 /* UIView+.swift */; };
 		0F80C17623B5951F000D6CD0 /* PinterestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE936812208726A00EC1F93 /* PinterestLayout.swift */; };
 		0F80C17723B59532000D6CD0 /* BeerListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9366A2208674900EC1F93 /* BeerListCell.swift */; };
-		0F8E98F223AE99D80001487B /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F8E98F123AE99D80001487B /* Kingfisher.framework */; };
-		0F8E98F323AE99D80001487B /* Kingfisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0F8E98F123AE99D80001487B /* Kingfisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0FE93636220863DB00EC1F93 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE93635220863DB00EC1F93 /* AppDelegate.swift */; };
 		0FE9363D220863DC00EC1F93 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0FE9363C220863DC00EC1F93 /* Assets.xcassets */; };
 		0FE93640220863DC00EC1F93 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FE9363E220863DC00EC1F93 /* LaunchScreen.storyboard */; };
@@ -69,6 +66,9 @@
 		0FE9367E22086C6100EC1F93 /* beerList.json in Resources */ = {isa = PBXBuildFile; fileRef = 0FE9367D22086C6100EC1F93 /* beerList.json */; };
 		0FE936802208712D00EC1F93 /* BeerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9367F2208712D00EC1F93 /* BeerListViewController.swift */; };
 		0FE936822208726A00EC1F93 /* PinterestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE936812208726A00EC1F93 /* PinterestLayout.swift */; };
+		2C79A22C23B68400007C7371 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C79A22B23B68400007C7371 /* Kingfisher.framework */; };
+		2C79A22D23B68400007C7371 /* Kingfisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2C79A22B23B68400007C7371 /* Kingfisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2C79A22F23B68533007C7371 /* BeerListViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C79A22E23B68533007C7371 /* BeerListViewControllerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,13 +89,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		0F8E98F423AE99D80001487B /* Embed Frameworks */ = {
+		2C79A22A23B68144007C7371 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				0F8E98F323AE99D80001487B /* Kingfisher.framework in Embed Frameworks */,
+				2C79A22D23B68400007C7371 /* Kingfisher.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -125,7 +125,6 @@
 		0F2A1CAC2209E08700294DC9 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
 		0F2A1CAE2209E0B900294DC9 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		0F2A1CB12209E11800294DC9 /* BeerListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerListCoordinator.swift; sourceTree = "<group>"; };
-		0F8E98F123AE99D80001487B /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
 		0FE93632220863DB00EC1F93 /* awesomeBeers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = awesomeBeers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FE93635220863DB00EC1F93 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0FE9363C220863DC00EC1F93 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -144,6 +143,8 @@
 		0FE9367D22086C6100EC1F93 /* beerList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = beerList.json; sourceTree = "<group>"; };
 		0FE9367F2208712D00EC1F93 /* BeerListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeerListViewController.swift; sourceTree = "<group>"; };
 		0FE936812208726A00EC1F93 /* PinterestLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinterestLayout.swift; sourceTree = "<group>"; };
+		2C79A22B23B68400007C7371 /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
+		2C79A22E23B68533007C7371 /* BeerListViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerListViewControllerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,7 +152,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F8E98F223AE99D80001487B /* Kingfisher.framework in Frameworks */,
+				2C79A22C23B68400007C7371 /* Kingfisher.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,7 +160,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F80C17023B59497000D6CD0 /* Kingfisher.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,6 +301,7 @@
 				0F2A1C962209C91900294DC9 /* BeerListViewModelTests.swift */,
 				0F2A1C982209C92B00294DC9 /* BeerDetailViewModelTests.swift */,
 				0F02361A23B5923F00A67780 /* BeerListCoordinatorTests.swift */,
+				2C79A22E23B68533007C7371 /* BeerListViewControllerTests.swift */,
 				0FE9364C220863DD00EC1F93 /* Info.plist */,
 			);
 			path = awesomeBeersTests;
@@ -374,7 +375,7 @@
 		0FE9366C22086A9100EC1F93 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0F8E98F123AE99D80001487B /* Kingfisher.framework */,
+				2C79A22B23B68400007C7371 /* Kingfisher.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -423,7 +424,7 @@
 				0FE9362F220863DB00EC1F93 /* Frameworks */,
 				0FE93630220863DB00EC1F93 /* Resources */,
 				0FE9366F22086AC000EC1F93 /* Run Script */,
-				0F8E98F423AE99D80001487B /* Embed Frameworks */,
+				2C79A22A23B68144007C7371 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -623,6 +624,7 @@
 				0F80C17623B5951F000D6CD0 /* PinterestLayout.swift in Sources */,
 				0F80C16E23B5941F000D6CD0 /* BeerListViewController.swift in Sources */,
 				0F80C17423B594D6000D6CD0 /* BeerDetailViewController.swift in Sources */,
+				2C79A22F23B68533007C7371 /* BeerListViewControllerTests.swift in Sources */,
 				0F2A1CA92209CA9100294DC9 /* EndpointType.swift in Sources */,
 				0F2A1CA12209CA5000294DC9 /* DataProvider.swift in Sources */,
 				0F2A1C992209C92B00294DC9 /* BeerDetailViewModelTests.swift in Sources */,
