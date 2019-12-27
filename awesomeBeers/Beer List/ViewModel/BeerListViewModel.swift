@@ -2,37 +2,34 @@ import Foundation
 
 class BeerListViewModel {
 
-    weak var viewModelCoordinatorDelegate: BeerListViewModelCoordinatorDelegate?
-    weak var viewDelegate: BeerListViewModelDelegate?
+    weak var delegate: BeerListViewControllerDelegate?
 
     private var beers: [Beer]?
     private var errorMessage: String?
-
-    init(delegate: BeerListViewModelCoordinatorDelegate) {
-        self.viewModelCoordinatorDelegate = delegate
-    }
 
     func loadBeers() {
 
         #if DEBUG
         if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil {
             beers = MockLoader().loadFile()
+            delegate?.didLoad(success: true)
+            delegate?.showLoadingIndicator(isLoading: false)
         }
         #endif
 
-        self.viewDelegate?.showLoadingIndicator(isLoading: true)
+        self.delegate?.showLoadingIndicator(isLoading: true)
 
         Facade.shared.dataProvider.beerSession.getAllBeers { result in
             switch result {
             case .success(let beers):
                 guard let beers = beers else { return }
                 self.beers = beers
-                self.viewDelegate?.didLoad(success: true)
-                self.viewDelegate?.showLoadingIndicator(isLoading: false)
+                self.delegate?.didLoad(success: true)
+                self.delegate?.showLoadingIndicator(isLoading: false)
             case .failure(let error):
                 self.errorMessage = error.localizedDescription
-                self.viewDelegate?.didLoad(success: false)
-                self.viewDelegate?.showLoadingIndicator(isLoading: false)
+                self.delegate?.didLoad(success: false)
+                self.delegate?.showLoadingIndicator(isLoading: false)
                 print("the error \(error)")
             }
         }
@@ -49,7 +46,7 @@ class BeerListViewModel {
 
     func didSelectRow(_ row: Int) {
         guard let selectedBeer = beers?[row] else { return }
-        viewModelCoordinatorDelegate?.didSelect(beer: selectedBeer)
+        delegate?.didSelect(beer: selectedBeer)
     }
 
     func getErrorMessage() -> String {

@@ -1,6 +1,6 @@
 import Foundation
 
-struct Beer: Decodable {
+struct Beer: Decodable, Equatable {
     let beerId: Int
     let name, tagline, description: String
     let imageUrl: String

@@ -14,9 +14,10 @@ class BeerListCoordinator: CoordinatorProtocol {
     }
     
     private func createBeerListViewController() -> BeerListViewController {
-        let viewModel = BeerListViewModel(delegate: self)
+        let viewModel = BeerListViewModel()
         let viewController = BeerListViewController(collectionViewLayout: UICollectionViewFlowLayout())
         viewController.viewModel = viewModel
+        viewController.delegate = self
         return viewController
     }
     

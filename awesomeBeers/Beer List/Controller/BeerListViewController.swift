@@ -12,10 +12,12 @@ private enum ViewConstants {
 
 class BeerListViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
+    weak var delegate: BeerListViewModelCoordinatorDelegate?
+    
     var viewModel: BeerListViewModel? {
         didSet {
             guard let viewModel = viewModel else { return }
-            viewModel.viewDelegate = self
+            viewModel.delegate = self
         }
     }
     
@@ -103,7 +105,7 @@ class BeerListViewController: UICollectionViewController, UICollectionViewDelega
 
 // MARK: - BeerListViewModelDelegate
 
-extension BeerListViewController: BeerListViewModelDelegate {
+extension BeerListViewController: BeerListViewControllerDelegate {
     
     func showLoadingIndicator(isLoading: Bool) {
         if isLoading {
@@ -122,6 +124,10 @@ extension BeerListViewController: BeerListViewModelDelegate {
                     .getErrorMessage() ?? "Error")
             }
         }
+    }
+    
+    func didSelect(beer: Beer) {
+        delegate?.didSelect(beer: beer)
     }
     
 }
