@@ -1,4 +1,3 @@
-[![Build Status](https://app.bitrise.io/app/5b5ae8059712cc92/status.svg?token=RIj8ZHbymZBLZhGJnDloZw&branch=master)](https://app.bitrise.io/app/5b5ae8059712cc92)
 [![codebeat badge](https://codebeat.co/badges/efd4eaaa-1fec-4fda-a775-bb1064bcea1a)](https://codebeat.co/projects/github-com-luanachen-awesomebeers-master)
 
 # AwesomeBeers
