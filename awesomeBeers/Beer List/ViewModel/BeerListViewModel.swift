@@ -3,23 +3,19 @@ import Foundation
 class BeerListViewModel {
 
     weak var delegate: BeerListViewControllerDelegate?
-
+    
+    private var session: BeerSessionProtocol
     private var beers: [Beer]?
     private var errorMessage: String?
+    
+    init(session: BeerSessionProtocol = BeerSession()) {
+        self.session = session
+    }
 
     func loadBeers() {
-
-        #if DEBUG
-        if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil {
-            beers = MockLoader().loadFile()
-            delegate?.didLoad(success: true)
-            delegate?.showLoadingIndicator(isLoading: false)
-        }
-        #endif
-
         self.delegate?.showLoadingIndicator(isLoading: true)
 
-        Facade.shared.dataProvider.beerSession.getAllBeers { result in
+        session.getAllBeers { result in
             switch result {
             case .success(let beers):
                 guard let beers = beers else { return }
