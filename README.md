@@ -1,6 +1,8 @@
 [![codebeat badge](https://codebeat.co/badges/efd4eaaa-1fec-4fda-a775-bb1064bcea1a)](https://codebeat.co/projects/github-com-luanachen-awesomebeers-master)
 
 # AwesomeBeers
+- Studying project with +80% test coverage.
+
 ## Requirements
 
 - iOS 11.0+
@@ -20,7 +22,7 @@ carthage bootstrap --platform ios
 
 ## Architecture
 
-When possible, AwesomeBeers follows MVVM-C architecture. View controllers send events to the coordinator by using the delegate pattern.
+When possible, AwesomeBeers follows MVVM-C architecture. View controllers send events to the coordinator by using the delegate pattern and networking session stored in a interface using Facade pattern.
 
 ## Project structure
 
