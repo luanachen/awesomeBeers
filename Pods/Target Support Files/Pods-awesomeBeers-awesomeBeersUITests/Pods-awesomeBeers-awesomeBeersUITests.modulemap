@@ -1,0 +1,6 @@
+framework module Pods_awesomeBeers_awesomeBeersUITests {
+  umbrella header "Pods-awesomeBeers-awesomeBeersUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

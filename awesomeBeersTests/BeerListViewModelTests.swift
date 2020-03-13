@@ -43,10 +43,8 @@ class BeerListViewModelTests: XCTestCase {
     
     func testGetBeerInfCorrectly() {
         guard let beer = sut.getBeer(for: 0) else { return }
-        XCTAssertEqual(beer.beerId, 1)
-        XCTAssertEqual(beer.name, "Buzz")
-        XCTAssertEqual(beer.description, "A light, crisp and bitter IPA brewed with English and American hops. A small batch brewed only once.")
-        XCTAssertEqual(beer.imageUrl, "https://images.punkapi.com/v2/keg.png")
+        let expectedBeer = BeerFactory.build()
+        XCTAssertEqual(beer, expectedBeer)
     }
     
     func testDidSelectRowCallsDelegateDidSelect() {
@@ -55,14 +53,7 @@ class BeerListViewModelTests: XCTestCase {
     }
     
     func testDidSelectRowPassesRightBeerToDelegate() {
-        let expectedBeer = Beer(beerId: 1,
-                                name: "Buzz",
-                                tagline: "A Real Bitter Experience.",
-                                description: "A light, crisp and bitter IPA brewed with English and American hops. A small batch brewed only once.",
-                                imageUrl: "https://images.punkapi.com/v2/keg.png",
-                                abv: 4.5,
-                                ibu: 60)
-        
+        let expectedBeer = BeerFactory.build()
         sut.didSelectRow(0)
         XCTAssertEqual(delegateMock.selectedBeer, expectedBeer)
     }

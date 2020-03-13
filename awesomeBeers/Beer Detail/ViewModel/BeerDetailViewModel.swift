@@ -11,5 +11,4 @@ class BeerDetailViewModel {
     func getBeer() -> Beer {
         return selectedBeer
     }
-
 }

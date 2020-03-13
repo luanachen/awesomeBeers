@@ -82,8 +82,8 @@ class BeerListViewController: UICollectionViewController, UICollectionViewDelega
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BeerListCell.identifier, for: indexPath) as? BeerListCell else { return UICollectionViewCell() }
-        if let viewModel = viewModel {
-            cell.bindView(with: viewModel, for: indexPath.item)
+        if let viewModel = viewModel, let beer = viewModel.getBeer(for: indexPath.item)  {
+            cell.show(beer: beer)
         }
         return cell
     }

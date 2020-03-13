@@ -22,7 +22,7 @@ class BeerDetailViewController: UIViewController {
 
         setupView()
 
-        bindView()
+        show()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -42,8 +42,8 @@ class BeerDetailViewController: UIViewController {
         }
     }
 
-    private func bindView() {
-        detailView.bindView(viewModel: viewModel)
+    private func show() {
+        detailView.show(viewModel: viewModel)
     }
 
     required init?(coder aDecoder: NSCoder) {
