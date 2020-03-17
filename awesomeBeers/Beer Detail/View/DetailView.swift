@@ -83,17 +83,18 @@ class DetailView: UIView {
     }
     
     func show(viewModel: BeerDetailViewModel) {
-        #if DEBUG
-        imageView.image = UIImage(named: "placeholder")
-        #else
         imageView.kf.setImage(with: URL(string: viewModel.getBeer().imageUrl))
-        #endif
-        
         descriptionLabel.text = viewModel.getBeer().description
         taglineLabel.text = viewModel.getBeer().tagline
         abvLabel.text = "abv: \(viewModel.getBeer().abv)"
         guard let ibu = viewModel.getBeer().ibu else { return }
         ibuLabel.text = "ibu: \(ibu)"
+        
+        #if DEBUG
+        if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil {
+            imageView.image = UIImage(named: "placeholder")
+        }
+        #endif
     }
     
 }

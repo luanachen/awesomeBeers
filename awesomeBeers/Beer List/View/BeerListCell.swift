@@ -21,6 +21,7 @@ class BeerListCell: UICollectionViewCell {
     }
     
     private func setupView() {
+        accessibilityIdentifier = "BeerListCell"
         layer.shadowColor = UIColor.lightGray.cgColor
         layer.shadowOffset = CGSize(width: 0, height: 2.0)
         layer.shadowRadius = 10.0
@@ -75,13 +76,15 @@ class BeerListCell: UICollectionViewCell {
         nameLabel.text = beer.name
         abvLabel.text = "abv: \(beer.abv)"
         
-        #if DEBUG
-        imageView.image = UIImage(named: "AppIcon")
-        #else
         let imageURL = URL(string: beer.imageUrl)
         imageView.kf.indicatorType = .activity
         imageView.kf.setImage(with: imageURL, placeholder: #imageLiteral(resourceName: "placeholder"))
+        
+        #if DEBUG
+        if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil {
+            imageView.kf.indicatorType = .none
+            imageView.image = UIImage(named: "AppIcon")
+        }
         #endif
     }
-    
 }

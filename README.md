@@ -14,10 +14,10 @@
 
 ### How to run the project
 
-This project uses [Cocoapods](https://github.com/CocoaPods/CocoaPods) as a dependency manager of choice. The dependencies are not included in the project so you need open this folder in Terminal and run the following command:
+This project uses [Carthage](https://github.com/Carthage/Carthage) as a dependency manager of choice. The dependencies are not included in the project so you need open this folder in Terminal and run the following command:
 
 ```sh
-pod install
+carthage bootstrap --platform ios
 ```
 
 ## Architecture

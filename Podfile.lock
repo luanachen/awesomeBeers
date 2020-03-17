@@ -17,14 +17,12 @@ PODS:
     - iOSSnapshotTestCase (~> 6.0)
     - Nimble (~> 8.0)
   - Quick (2.2.0)
-  - SwiftLint (0.39.1)
 
 DEPENDENCIES:
   - KIF
   - Kingfisher
   - Nimble-Snapshots
   - Quick
-  - SwiftLint
 
 SPEC REPOS:
   trunk:
@@ -34,7 +32,6 @@ SPEC REPOS:
     - Nimble
     - Nimble-Snapshots
     - Quick
-    - SwiftLint
 
 SPEC CHECKSUMS:
   iOSSnapshotTestCase: 9ab44cb5aa62b84d31847f40680112e15ec579a6
@@ -43,8 +40,7 @@ SPEC CHECKSUMS:
   Nimble: 4ab1aeb9b45553c75b9687196b0fa0713170a332
   Nimble-Snapshots: 5058fb9b459e64371f54a0f8d9dde6f33db490a0
   Quick: 7fb19e13be07b5dfb3b90d4f9824c855a11af40e
-  SwiftLint: 55e96a4a4d537d4a3156859fc1c54bd24851a046
 
-PODFILE CHECKSUM: e6c84c6f14a051a17a55f7bb552c6a72731d8b5a
+PODFILE CHECKSUM: 2bc251ca5ff473080f7512b305306119509a72e8
 
 COCOAPODS: 1.9.1
