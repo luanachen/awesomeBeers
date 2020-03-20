@@ -10,32 +10,33 @@ class DefaultFlowTest: QuickSpec {
     override func spec() {
         
         describe("default flow behavior") {
-            var sut: BeerListViewController!
+            var coordinator: BeerListCoordinator!
+            var navigationController: UINavigationController!
             var window: UIWindow!
             
             beforeEach {
-                window = UIWindow(frame: CGRect(x:0, y:0, width: 320, height: 564))
+                window = UIApplication.shared.keyWindow
+                window.frame = CGRect(x:0, y:0, width: 320, height: 564)
                 window.makeKeyAndVisible()
-            }
-            
-            afterEach {
-                UIView.setAnimationsEnabled(false)
-                window.isHidden = true
-                window = nil
+                
+                navigationController = UINavigationController()
+                window.rootViewController = navigationController
+                coordinator = BeerListCoordinator(navigation: navigationController)
             }
             
             context("on select a cell") {
-                
-                beforeEach {
-                    sut = BeerListViewController()
-                    window.rootViewController = sut
-                }
-                
-                it("it shoud show beer detail when a cell is selected") {
-                    expect(window).toEventually(recordSnapshot(named: "pre cell selected"))
+                it("it should show beer detail when a cell is selected") {
+                    coordinator.start()
                     
-                    self.tester().tapView(withAccessibilityLabel: "BeerListCell")
-                    expect(window).toEventually(recordSnapshot(named: "cell selected"))
+                    expect(navigationController.visibleViewController).toEventually(beAKindOf(BeerListViewController.self))
+                    expect(navigationController.visibleViewController).toEventually(recordSnapshot(named: "pre cell selected"))
+                    
+                    let indexPath = IndexPath(item: 1, section: 0)
+                    self.tester().tapItem(at: indexPath, inCollectionViewWithAccessibilityIdentifier: "CollectionView")
+                    self.tester().wait(forTimeInterval: 2)
+                    
+                    expect(navigationController.visibleViewController).toEventually(beAKindOf(BeerDetailViewController.self))
+                    expect(navigationController.visibleViewController).toEventually(haveValidSnapshot(named: "cell selected"))
                 }
             }
         }

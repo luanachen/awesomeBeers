@@ -77,14 +77,14 @@ class BeerListCell: UICollectionViewCell {
         abvLabel.text = "abv: \(beer.abv)"
         
         let imageURL = URL(string: beer.imageUrl)
-        imageView.kf.indicatorType = .activity
-        imageView.kf.setImage(with: imageURL, placeholder: #imageLiteral(resourceName: "placeholder"))
-        
         #if DEBUG
         if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil {
             imageView.kf.indicatorType = .none
             imageView.image = UIImage(named: "AppIcon")
         }
+        #else
+        imageView.kf.indicatorType = .activity
+        imageView.kf.setImage(with: imageURL, placeholder: #imageLiteral(resourceName: "placeholder"))
         #endif
     }
 }

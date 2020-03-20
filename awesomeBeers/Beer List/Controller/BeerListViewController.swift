@@ -44,6 +44,7 @@ class BeerListViewController: UICollectionViewController, UICollectionViewDelega
     }
     
     private func setupCollectionView() {
+        collectionView.accessibilityIdentifier = "CollectionView"
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.alwaysBounceVertical = true
@@ -137,7 +138,13 @@ extension BeerListViewController: BeerListViewControllerDelegate {
 extension BeerListViewController: PinterestLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
         let imageView = UIImageView()
+        #if DEBUG
+        if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil {
+            imageView.image = UIImage(named: "placeholder")
+        }
+        #else
         imageView.kf.setImage(with: URL(string: viewModel?.getBeer(for: indexPath.item)?.imageUrl ?? ""), placeholder: #imageLiteral(resourceName: "placeholder"))
+        #endif
         guard let height = imageView.image?.size.height else { return 0 }
         return height * CGFloat(0.4)
     }

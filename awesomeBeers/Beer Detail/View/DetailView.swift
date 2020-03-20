@@ -44,6 +44,7 @@ class DetailView: UIView {
     }
     
     private func setupView() {
+        self.accessibilityIdentifier = "BeerDetailView"
         self.taglineLabel.textAlignment = .center
         self.taglineLabel.textColor = .white
         self.taglineLabel.lineBreakMode = .byWordWrapping

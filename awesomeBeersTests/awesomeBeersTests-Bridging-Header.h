@@ -9,5 +9,6 @@
 #ifndef awesomeBeersTests_Bridging_Header_h
 #define awesomeBeersTests_Bridging_Header_h
 
+#import <KIF/KIF.h>
 
 #endif /* awesomeBeersTests_Bridging_Header_h */
