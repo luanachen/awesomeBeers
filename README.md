@@ -8,16 +8,16 @@
 - iOS 11.0+
 - Xcode 10.2+
 - Swift 5.0
-- Carthage 0.34.0+
+- Cocoapods 1.9.1+
 
 ## QuickStart
 
 ### How to run the project
 
-This project uses [Carthage](https://github.com/Carthage/Carthage) as a dependency manager of choice. The dependencies are not included in the project so you need open this folder in Terminal and run the following command:
+This project uses [Cocoapods](https://github.com/CocoaPods/CocoaPods) as a dependency manager of choice. The dependencies are not included in the project so you need open this folder in Terminal and run the following command:
 
 ```sh
-carthage bootstrap --platform ios
+pod install
 ```
 
 ## Architecture
@@ -36,6 +36,4 @@ The project has a few unit and UI tests implemented. The tests are written using
 
 # Contact
 
-- Luana Chen
-- luanachen@gmail.com
 - https://www.linkedin.com/in/luanachen/
