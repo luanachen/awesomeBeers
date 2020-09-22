@@ -7,6 +7,7 @@
 //
 
 import Foundation
+//import NetworkHelper
 
 class BeerSession: BeerSessionProtocol, APIClient {
 
@@ -25,10 +26,11 @@ class BeerSession: BeerSessionProtocol, APIClient {
         var request = endPoint.request
         request.httpMethod = HTTPMethod.get.rawValue
 
-        fetch(with: request, decode: { json -> [Beer]? in
+        fetch(with: request, decode: { json in
             guard let beerResult = json as? [Beer] else { return nil }
             return beerResult
         }, completion: completion)
+        
     }
 
 }

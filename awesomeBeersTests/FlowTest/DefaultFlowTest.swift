@@ -29,7 +29,6 @@ class DefaultFlowTest: QuickSpec {
                     coordinator.start()
                     
                     expect(navigationController.visibleViewController).toEventually(beAKindOf(BeerListViewController.self))
-                    expect(navigationController.visibleViewController).toEventually(recordSnapshot(named: "pre cell selected"))
                     
                     let indexPath = IndexPath(item: 1, section: 0)
                     self.tester().tapItem(at: indexPath, inCollectionViewWithAccessibilityIdentifier: "CollectionView")

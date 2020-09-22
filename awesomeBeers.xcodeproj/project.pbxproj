@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -69,6 +69,7 @@
 		2C79A22F23B68533007C7371 /* BeerListViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C79A22E23B68533007C7371 /* BeerListViewControllerTests.swift */; };
 		39737D81E09428FDC3311386 /* Pods_awesomeBeers_awesomeBeersUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF4176D56BD5996ECC86738F /* Pods_awesomeBeers_awesomeBeersUITests.framework */; };
 		4544815F843BC22101BA646A /* Pods_awesomeBeersTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DA1FFE7D860B93D1D14B640 /* Pods_awesomeBeersTests.framework */; };
+		EB60EEE32515058D006CFD09 /* NetworkHelper in Frameworks */ = {isa = PBXBuildFile; productRef = EB60EEE22515058D006CFD09 /* NetworkHelper */; };
 		EB7D106D241C456100CB6029 /* KIF+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7D106C241C456100CB6029 /* KIF+Extensions.swift */; };
 		EBA66ADB241BFF7B008D3327 /* BeerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA66ADA241BFF7B008D3327 /* BeerFactory.swift */; };
 		EBA66ADD241C00B7008D3327 /* DetailViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA66ADC241C00B7008D3327 /* DetailViewTests.swift */; };
@@ -162,6 +163,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F53D270F1FFD3112D572EB52 /* Pods_awesomeBeers.framework in Frameworks */,
+				EB60EEE32515058D006CFD09 /* NetworkHelper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -539,6 +541,9 @@
 			dependencies = (
 			);
 			name = awesomeBeers;
+			packageProductDependencies = (
+				EB60EEE22515058D006CFD09 /* NetworkHelper */,
+			);
 			productName = awesomeBeers;
 			productReference = 0FE93632220863DB00EC1F93 /* awesomeBeers.app */;
 			productType = "com.apple.product-type.application";
@@ -617,6 +622,9 @@
 				Base,
 			);
 			mainGroup = 0FE93629220863DB00EC1F93;
+			packageReferences = (
+				EB60EEE12515058D006CFD09 /* XCRemoteSwiftPackageReference "NetworkHelper" */,
+			);
 			productRefGroup = 0FE93633220863DB00EC1F93 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1208,6 +1216,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EB60EEE12515058D006CFD09 /* XCRemoteSwiftPackageReference "NetworkHelper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:luanachen/NetworkHelper.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EB60EEE22515058D006CFD09 /* NetworkHelper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EB60EEE12515058D006CFD09 /* XCRemoteSwiftPackageReference "NetworkHelper" */;
+			productName = NetworkHelper;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0FE9362A220863DB00EC1F93 /* Project object */;
 }

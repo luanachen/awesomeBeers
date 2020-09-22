@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "NetworkHelper",
+        "repositoryURL": "git@github.com:luanachen/NetworkHelper.git",
+        "state": {
+          "branch": "master",
+          "revision": "f867d37081595d686c00b0bcad96d1c0fd39c8a2",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

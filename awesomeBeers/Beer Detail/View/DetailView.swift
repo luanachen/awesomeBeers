@@ -90,12 +90,6 @@ class DetailView: UIView {
         abvLabel.text = "abv: \(viewModel.getBeer().abv)"
         guard let ibu = viewModel.getBeer().ibu else { return }
         ibuLabel.text = "ibu: \(ibu)"
-        
-        #if DEBUG
-        if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil {
-            imageView.image = UIImage(named: "placeholder")
-        }
-        #endif
     }
     
 }
