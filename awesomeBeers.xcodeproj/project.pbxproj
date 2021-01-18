@@ -74,6 +74,8 @@
 		EBA66ADF241C053D008D3327 /* BeerDetailViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA66ADE241C053D008D3327 /* BeerDetailViewModelFactory.swift */; };
 		EBA66AE7241C0DD5008D3327 /* BeerListCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA66AE6241C0DD5008D3327 /* BeerListCellTests.swift */; };
 		EBC70D0325B2122B002F71EB /* UIView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC70D0225B2122B002F71EB /* UIView+extension.swift */; };
+		EBC70D1525B217B4002F71EB /* CVView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC70D1425B217B4002F71EB /* CVView.swift */; };
+		EBC70D1A25B220D6002F71EB /* CVViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC70D1925B220D6002F71EB /* CVViewController.swift */; };
 		EBCB918124211DEB000CD3B8 /* DefaultFlowTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCB918024211DEB000CD3B8 /* DefaultFlowTest.swift */; };
 		F53D270F1FFD3112D572EB52 /* Pods_awesomeBeers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 286F8EFE4BEEF60D585933D4 /* Pods_awesomeBeers.framework */; };
 /* End PBXBuildFile section */
@@ -151,6 +153,8 @@
 		EBA66ADE241C053D008D3327 /* BeerDetailViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerDetailViewModelFactory.swift; sourceTree = "<group>"; };
 		EBA66AE6241C0DD5008D3327 /* BeerListCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerListCellTests.swift; sourceTree = "<group>"; };
 		EBC70D0225B2122B002F71EB /* UIView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+extension.swift"; sourceTree = "<group>"; };
+		EBC70D1425B217B4002F71EB /* CVView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CVView.swift; sourceTree = "<group>"; };
+		EBC70D1925B220D6002F71EB /* CVViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CVViewController.swift; sourceTree = "<group>"; };
 		EBCB917C24211BA7000CD3B8 /* awesomeBeersTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "awesomeBeersTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		EBCB918024211DEB000CD3B8 /* DefaultFlowTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFlowTest.swift; sourceTree = "<group>"; };
 		F6F829BF3845B4DAA043E2CA /* Pods-awesomeBeersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-awesomeBeersTests.debug.xcconfig"; path = "Target Support Files/Pods-awesomeBeersTests/Pods-awesomeBeersTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -295,6 +299,7 @@
 		0FE93634220863DB00EC1F93 /* awesomeBeers */ = {
 			isa = PBXGroup;
 			children = (
+				EBC70D1325B21791002F71EB /* CodeLathe */,
 				0FE936642208664F00EC1F93 /* App */,
 				0F2A1CAB2209E06600294DC9 /* Coordinators */,
 				0FE9367922086C0600EC1F93 /* Data */,
@@ -495,6 +500,15 @@
 				2C79A22E23B68533007C7371 /* BeerListViewControllerTests.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		EBC70D1325B21791002F71EB /* CodeLathe */ = {
+			isa = PBXGroup;
+			children = (
+				EBC70D1425B217B4002F71EB /* CVView.swift */,
+				EBC70D1925B220D6002F71EB /* CVViewController.swift */,
+			);
+			path = CodeLathe;
 			sourceTree = "<group>";
 		};
 		EBCB917D24211D10000CD3B8 /* View */ = {
@@ -812,6 +826,7 @@
 				0FE9367C22086C1C00EC1F93 /* BeerResult.swift in Sources */,
 				0F2A1C6D2209B2E900294DC9 /* DetailView.swift in Sources */,
 				0F2A1C832209B64D00294DC9 /* EndpointType.swift in Sources */,
+				EBC70D1525B217B4002F71EB /* CVView.swift in Sources */,
 				0F2A1CB22209E11800294DC9 /* BeerListCoordinator.swift in Sources */,
 				0FE93636220863DB00EC1F93 /* AppDelegate.swift in Sources */,
 				0FE9367822086BE500EC1F93 /* BeerListProtocols.swift in Sources */,
@@ -829,6 +844,7 @@
 				0F2A1C7A2209B63200294DC9 /* EndPoint.swift in Sources */,
 				0F2A1C8D2209B66200294DC9 /* BeerSession.swift in Sources */,
 				0F80C17A23BE33CF000D6CD0 /* MockLoader.swift in Sources */,
+				EBC70D1A25B220D6002F71EB /* CVViewController.swift in Sources */,
 				0F2A1CAD2209E08700294DC9 /* CoordinatorProtocol.swift in Sources */,
 				0F2A1C8E2209B66200294DC9 /* BeerSessionProtocol.swift in Sources */,
 				0F2A1C732209B35A00294DC9 /* BeerDetailViewController.swift in Sources */,
@@ -963,7 +979,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1019,7 +1035,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1042,7 +1058,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/awesomeBeers/Resources/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1067,7 +1083,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/awesomeBeers/Resources/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

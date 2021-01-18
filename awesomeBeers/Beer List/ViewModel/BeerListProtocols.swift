@@ -8,4 +8,5 @@ protocol BeerListViewControllerDelegate: class {
 
 protocol BeerListViewModelCoordinatorDelegate: class {
     func didSelect(beer: Beer)
+    func openCV()
 }

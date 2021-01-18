@@ -30,8 +30,11 @@ class BeerListViewController: UICollectionViewController, UICollectionViewDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = Constants.NavigationTitle
+        title = Constants.NavigationTitle
         view.accessibilityIdentifier = Constants.AccessibilityIdentifier
+
+        let rightItem = UIBarButtonItem(image: UIImage(systemName: "book"), style: .plain, target: self, action: #selector(openCV))
+        navigationItem.rightBarButtonItem = rightItem
         
         viewModel?.loadBeers()
         setupCollectionView()
@@ -41,6 +44,10 @@ class BeerListViewController: UICollectionViewController, UICollectionViewDelega
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+    }
+
+    @objc func openCV() {
+        delegate?.openCV()
     }
     
     private func setupCollectionView() {
@@ -60,7 +67,7 @@ class BeerListViewController: UICollectionViewController, UICollectionViewDelega
     
     private func setupIndicatorView() {
         indicator = UIActivityIndicatorView(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: ViewConstants.IndicatorDimensions, height: ViewConstants.IndicatorDimensions)))
-        indicator.style = .gray
+        indicator.style = .medium
         indicator.center = collectionView.center
         indicator.hidesWhenStopped = true
         self.view.addSubview(indicator)
