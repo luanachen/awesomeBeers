@@ -8,14 +8,12 @@
 
 import SwiftUI
 
-let skills = ["HTML", "CSS", "JavaScript", "Git", "Photoshop"]
-let gallery = ["photo1", "photo2", "photo3", "photo4", "photo5"]
-
 struct CVView: View {
 
-    private var skillColumns = Array(repeating: GridItem(.flexible(), spacing: 8), count: 4)
+    @ObservedObject var viewModel: CVViewViewModel
 
-    private var rows = [GridItem(.fixed(95))]
+    private let skillRows = Array(repeating: GridItem(.flexible(), spacing: 20), count: 2)
+    private let galleryRows = [GridItem(.fixed(95))]
 
     var body: some View {
         ScrollView {
@@ -24,7 +22,8 @@ struct CVView: View {
                     Spacer()
                     HStack() {
                         HStack(spacing: 19) {
-                            Image(systemName: "car")
+                            Image(uiImage: viewModel.image ?? UIImage())
+                                .background(Color.black)
                                 .frame(width: 42, height: 42)
                                 .clipShape(Circle())
                             Text("John Doe")
@@ -35,33 +34,24 @@ struct CVView: View {
                             .background(Color(#colorLiteral(red: 0.5770838261, green: 0.6604583859, blue: 0.7156390548, alpha: 1)))
                         Spacer()
                         VStack(spacing: 15) {
-                            Text("@ john@doe.com")
-                            Text("📞 john@doe.com")
+                            Text("@  john@doe.com")
+                            Text("📞  john@doe.com")
                         }
                     }
                     Spacer()
                 }
                 .padding(.all)
 
-                VStack {
-                    LazyVGrid(
-                        columns: skillColumns,
-                        alignment: .leading,
-                        spacing: 8,
-                        pinnedViews: [.sectionHeaders]
-                    ) {
-                        Section(header: Text("Skills")
-                                    .font(.title)) {
+                Text("Skills")
+                    .font(.title)
+                    .padding(.all)
 
-                            ForEach(skills, id: \.self) {
-                                Text("\($0)")
-                                    .font(.body)
-                                    .fontWeight(.bold)
-                                    .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
-                                    .foregroundColor(.white)
-                                    .background(Color(#colorLiteral(red: 0.5770838261, green: 0.6604583859, blue: 0.7156390548, alpha: 1)))
-                                    .cornerRadius(16)
-                            }
+                VStack {
+                    LazyHGrid(rows: skillRows, spacing: 8) {
+                        ForEach(viewModel.skills, id: \.self) {
+                            Text("\($0)")
+                                .fontWeight(.bold)
+                                .modifier(TagStyle())
                         }
                     }
                 }
@@ -80,18 +70,20 @@ struct CVView: View {
                     .padding(.all)
 
                 ScrollView(.horizontal) {
-                    LazyHGrid(rows: rows, spacing: 16) {
-                        ForEach(gallery, id: \.self) { item in
-                            Image(systemName: "car")
+                    LazyHGrid(rows: galleryRows, spacing: 16) {
+                        ForEach(viewModel.gallery, id: \.self) { item in
+                            Image("\(item)")
                                 .frame(width: 95, height: 93, alignment: .center)
                                 .cornerRadius(5)
+                                .clipped()
                                 .overlay(RoundedRectangle(cornerRadius: 5)
-                                            .stroke(Color(#colorLiteral(red: 0.5770838261, green: 0.6604583859, blue: 0.7156390548, alpha: 1)), lineWidth: 2))
-                                .shadow(radius: 4)
+                                            .stroke(Color(#colorLiteral(red: 0.5770838261, green: 0.6604583859, blue: 0.7156390548, alpha: 1)), lineWidth: 2)
+                                            .shadow(radius: 2, x: 0, y: 1))
+
                         }
                     }
                 }
-
+                .padding(EdgeInsets(top: 0, leading: -16, bottom: 90, trailing: -16))
             }
         }
     }
@@ -100,8 +92,9 @@ struct CVView: View {
 struct CVView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CVView()
-            CVView()
+            let viewModel = CVViewViewModel()
+            CVView(viewModel: viewModel)
+            CVView(viewModel: viewModel)
                 .previewDevice("iPhone 12 mini")
         }
     }

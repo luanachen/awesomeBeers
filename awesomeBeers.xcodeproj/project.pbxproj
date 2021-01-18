@@ -76,6 +76,8 @@
 		EBC70D0325B2122B002F71EB /* UIView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC70D0225B2122B002F71EB /* UIView+extension.swift */; };
 		EBC70D1525B217B4002F71EB /* CVView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC70D1425B217B4002F71EB /* CVView.swift */; };
 		EBC70D1A25B220D6002F71EB /* CVViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC70D1925B220D6002F71EB /* CVViewController.swift */; };
+		EBC70D6925B6137E002F71EB /* TagStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC70D6825B6137E002F71EB /* TagStyle.swift */; };
+		EBC70D6E25B62446002F71EB /* CVViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC70D6D25B62446002F71EB /* CVViewViewModel.swift */; };
 		EBCB918124211DEB000CD3B8 /* DefaultFlowTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCB918024211DEB000CD3B8 /* DefaultFlowTest.swift */; };
 		F53D270F1FFD3112D572EB52 /* Pods_awesomeBeers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 286F8EFE4BEEF60D585933D4 /* Pods_awesomeBeers.framework */; };
 /* End PBXBuildFile section */
@@ -155,6 +157,8 @@
 		EBC70D0225B2122B002F71EB /* UIView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+extension.swift"; sourceTree = "<group>"; };
 		EBC70D1425B217B4002F71EB /* CVView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CVView.swift; sourceTree = "<group>"; };
 		EBC70D1925B220D6002F71EB /* CVViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CVViewController.swift; sourceTree = "<group>"; };
+		EBC70D6825B6137E002F71EB /* TagStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagStyle.swift; sourceTree = "<group>"; };
+		EBC70D6D25B62446002F71EB /* CVViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CVViewViewModel.swift; sourceTree = "<group>"; };
 		EBCB917C24211BA7000CD3B8 /* awesomeBeersTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "awesomeBeersTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		EBCB918024211DEB000CD3B8 /* DefaultFlowTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFlowTest.swift; sourceTree = "<group>"; };
 		F6F829BF3845B4DAA043E2CA /* Pods-awesomeBeersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-awesomeBeersTests.debug.xcconfig"; path = "Target Support Files/Pods-awesomeBeersTests/Pods-awesomeBeersTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -505,8 +509,10 @@
 		EBC70D1325B21791002F71EB /* CodeLathe */ = {
 			isa = PBXGroup;
 			children = (
+				EBC70D6825B6137E002F71EB /* TagStyle.swift */,
 				EBC70D1425B217B4002F71EB /* CVView.swift */,
 				EBC70D1925B220D6002F71EB /* CVViewController.swift */,
+				EBC70D6D25B62446002F71EB /* CVViewViewModel.swift */,
 			);
 			path = CodeLathe;
 			sourceTree = "<group>";
@@ -827,6 +833,7 @@
 				0F2A1C6D2209B2E900294DC9 /* DetailView.swift in Sources */,
 				0F2A1C832209B64D00294DC9 /* EndpointType.swift in Sources */,
 				EBC70D1525B217B4002F71EB /* CVView.swift in Sources */,
+				EBC70D6E25B62446002F71EB /* CVViewViewModel.swift in Sources */,
 				0F2A1CB22209E11800294DC9 /* BeerListCoordinator.swift in Sources */,
 				0FE93636220863DB00EC1F93 /* AppDelegate.swift in Sources */,
 				0FE9367822086BE500EC1F93 /* BeerListProtocols.swift in Sources */,
@@ -839,6 +846,7 @@
 				0F2A1C932209B68500294DC9 /* DataProtocol.swift in Sources */,
 				0F2A1C862209B64D00294DC9 /* HTTPMethod.swift in Sources */,
 				0F2A1C842209B64D00294DC9 /* APIError.swift in Sources */,
+				EBC70D6925B6137E002F71EB /* TagStyle.swift in Sources */,
 				0F2A1C922209B68500294DC9 /* DataProvider.swift in Sources */,
 				0F2A1C892209B64D00294DC9 /* Result.swift in Sources */,
 				0F2A1C7A2209B63200294DC9 /* EndPoint.swift in Sources */,

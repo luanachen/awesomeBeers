@@ -11,11 +11,13 @@ import UIKit
 
 class CVViewController: UIViewController {
 
-    let cvViewController = UIHostingController(rootView: CVView())
-
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "John Doe's Virtual CV"
+
+        let cvViewModel = CVViewViewModel()
+        let cvViewController = UIHostingController(rootView: CVView(viewModel: cvViewModel))
+
         addChild(cvViewController)
         view.addSubview(cvViewController.view)
         cvViewController.view.fillSuperview()
