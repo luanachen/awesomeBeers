@@ -3,7 +3,7 @@ ENABLE_BITCODE = NO
 FRAMEWORK_SEARCH_PATHS = $(inherited) "$(PLATFORM_DIR)/Developer/Library/Frameworks"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 LIBRARY_SEARCH_PATHS = $(inherited) "$(PLATFORM_DIR)/Developer/usr/lib"
-OTHER_LDFLAGS = $(inherited) -framework "CoreGraphics" -framework "IOKit" -framework "QuartzCore" -framework "XCTest"
+OTHER_LDFLAGS = $(inherited) -framework "CoreGraphics" -framework "IOKit" -framework "QuartzCore" -framework "WebKit" -framework "XCTest"
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_ROOT = ${SRCROOT}

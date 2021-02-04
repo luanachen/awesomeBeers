@@ -27,8 +27,9 @@
 {
     __block BOOL result = NO;
     [self performBlockOnDescendentLayers:^(CALayer *layer, BOOL *stop) {
-      // explicitly exclude _UIParallaxMotionEffect as it is used in alertviews, and we don't want every alertview to be paused)
-      BOOL hasAnimation = layer.animationKeys.count != 0 && ![layer.animationKeys isEqualToArray:@[@"_UIParallaxMotionEffect"]];
+      // explicitly exclude _UIParallaxMotionEffect as it is used in alertviews, and we don't want every alertview to be paused
+      // explicitly exclude UITextSelectionViewCaretBlinkAnimation as it is used in textfields, and we don't want every view with textfields to be paused
+      BOOL hasAnimation = layer.animationKeys.count != 0 && ![layer.animationKeys containsObject:@"_UIParallaxMotionEffect"] && ![layer.animationKeys containsObject:@"UITextSelectionViewCaretBlinkAnimation"];
       if (hasAnimation && !layer.hidden) {
           double currentTime = CACurrentMediaTime() * [layer KIF_absoluteSpeed];
 
@@ -62,7 +63,7 @@
         return;
     }
 
-    for (CALayer *layer in self.sublayers) {
+    for (CALayer *layer in self.sublayers.copy) {
         [layer performBlockOnDescendentLayers:block stop:stop];
         if (*stop) {
             return;

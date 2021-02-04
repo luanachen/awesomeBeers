@@ -37,6 +37,7 @@
 #import "NSString+KIFAdditions.h"
 #import "UIAccessibilityElement-KIFAdditions.h"
 #import "UIApplication-KIFAdditions.h"
+#import "UIDatePicker+KIFAdditions.h"
 #import "UIEvent+KIFAdditions.h"
 #import "UIScreen+KIFAdditions.h"
 #import "UIScrollView-KIFAdditions.h"

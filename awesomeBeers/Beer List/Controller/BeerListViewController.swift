@@ -107,23 +107,23 @@ class BeerListViewController: UICollectionViewController, UICollectionViewDelega
 // MARK: - BeerListViewModelDelegate
 
 extension BeerListViewController: BeerListViewControllerDelegate {
-    
-    func showLoadingIndicator(isLoading: Bool) {
-        if isLoading {
+    func didStartLoading() {
+        DispatchQueue.main.async {
             self.indicator.startAnimating()
-        } else {
-            self.indicator.stopAnimating()
         }
     }
-    
-    func didLoad(success: Bool) {
+
+    func didLoadWithSuccess() {
         DispatchQueue.main.async {
-            if success {
-                self.collectionView.reloadData()
-            } else {
-                self.showError(message: self.viewModel?
-                    .getErrorMessage() ?? "Error")
-            }
+            self.indicator.stopAnimating()
+            self.collectionView.reloadData()
+        }
+    }
+
+    func didLoadWithError() {
+        DispatchQueue.main.async {
+            self.showError(message: self.viewModel?
+                            .getErrorMessage() ?? "Error")
         }
     }
     

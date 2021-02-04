@@ -35,7 +35,6 @@ class DefaultFlowTest: QuickSpec {
                     self.tester().wait(forTimeInterval: 2)
                     
                     expect(navigationController.visibleViewController).toEventually(beAKindOf(BeerDetailViewController.self))
-                    expect(navigationController.visibleViewController).toEventually(haveValidSnapshot(named: "cell selected"))
                 }
             }
         }

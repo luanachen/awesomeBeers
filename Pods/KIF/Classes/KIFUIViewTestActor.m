@@ -16,6 +16,7 @@
 #import "UIAccessibilityElement-KIFAdditions.h"
 #import "UIApplication-KIFAdditions.h"
 #import "UIWindow-KIFAdditions.h"
+#import "UIDatePicker+KIFAdditions.h"
 
 @interface KIFUIViewTestActor ()
 
@@ -210,9 +211,17 @@ NSString *const inputFieldTestString = @"Testing";
 - (void)waitToBecomeFirstResponder;
 {
     [self runBlock:^KIFTestStepResult(NSError **error) {
-        UIResponder *firstResponder = [[[UIApplication sharedApplication] keyWindow] firstResponder];
+        BOOL didMatch = NO;
+        NSArray *firstResponders = [[UIApplication sharedApplication] firstResponders];
 
-        KIFTestWaitCondition([self.predicate evaluateWithObject:firstResponder], error, @"Expected first responder to match '%@', got '%@'", self.predicate, firstResponder);
+        for (UIResponder *firstResponder in firstResponders) {
+            if ([self.predicate evaluateWithObject:firstResponder]) {
+                didMatch = YES;
+                break;
+            }
+        }
+
+        KIFTestWaitCondition(didMatch, error, @"Expected to find a first responder matching '%@', got: %@", self.predicate.kifPredicateDescription, firstResponders);
         return KIFTestStepResultSuccess;
     }];
 }
@@ -457,6 +466,27 @@ NSString *const inputFieldTestString = @"Testing";
     }
 }
 
+#pragma mark - Date Picker Actions
+
+- (void)selectDatePickerDate:(NSDate *)date
+{
+    @autoreleasepool {
+        KIFUIObject *found = [[self _usingExpectedClass:[UIDatePicker class]] _predicateSearchWithRequiresMatch:NO mustBeTappable:NO];
+        [(UIDatePicker *)found.view selectDate:date];
+    }
+}
+
+- (void)selectCountdownTimerDatePickerHours:(NSUInteger)hours minutes:(NSUInteger)minutes
+{
+    @autoreleasepool {
+        KIFUIObject *found = [[self _usingExpectedClass:[UIDatePicker class]] _predicateSearchWithRequiresMatch:NO mustBeTappable:NO];
+        [(UIDatePicker *)found.view selectCountdownHours:hours minutes:minutes];
+    }
+}
+
+
+#pragma mark - Deprecated Date Picker Actions
+
 - (void)selectDatePickerViewRowWithTitle:(NSString *)title inComponent:(NSInteger)component;
 {
     @autoreleasepool {
@@ -475,8 +505,7 @@ NSString *const inputFieldTestString = @"Testing";
 {
     @autoreleasepool {
         KIFUIObject *found = [[self _usingExpectedClass:[UIDatePicker class]] _predicateSearchWithRequiresMatch:NO mustBeTappable:NO];
-        UIPickerView *picker = [self _getDatePickerViewFromPicker:found.view];
-        [self.actor selectDatePickerValue:datePickerColumnValues fromPicker:picker withSearchOrder:searchOrder];
+        [self.actor selectDatePickerValue:datePickerColumnValues fromPicker:(UIDatePicker *)found.view withSearchOrder:searchOrder];
     }
 }
 

@@ -15,7 +15,7 @@
 #if DEPRECATE_KIF_TESTER
 // Add `-DDEPRECATE_KIF_TESTER=1` to OTHER_CFLAGS if you'd like to prevent usage of `tester`.
 @class KIFUITestActor;
-KIFUITestActor *_KIF_tester() __attribute__((deprecated("Use of `tester` has been deprecated; Use `viewTester` instead.")));
+KIFUITestActor *_KIF_tester(void) __attribute__((deprecated("Use of `tester` has been deprecated; Use `viewTester` instead.")));
 #define tester _KIF_tester()
 #else
 #define tester KIFActorWithClass(KIFUITestActor)
@@ -376,7 +376,7 @@ typedef NS_ENUM(NSUInteger, KIFPullToRefreshTiming) {
 
 /*!
  @abstract Enters text into a the current first responder.
- @discussion Text is entered into the view by simulating taps on the appropriate keyboard keys if the keyboard is already displayed. Useful to enter text in UIWebViews or components with no accessibility labels.
+ @discussion Text is entered into the view by simulating taps on the appropriate keyboard keys if the keyboard is already displayed. Useful to enter text in WKWebViews or components with no accessibility labels.
  @param text The text to enter.
  */
 - (void)enterTextIntoCurrentFirstResponder:(NSString *)text;
@@ -465,7 +465,7 @@ typedef NS_ENUM(NSUInteger, KIFPullToRefreshTiming) {
  @discussion With a date picker view already visible, this step will select the different rotating wheel values in order of how the array parameter is passed in. After it is done it will hide the date picker. It works with all 4 UIDatePickerMode* modes. The input parameter of type NSArray has to match in what order the date picker is displaying the values/columns. So if the locale is changing the input parameter has to be adjusted. Example: Mode: UIDatePickerModeDate, Locale: en_US, Input param: NSArray *date = @[@"June", @"17", @"1965"];. Example: Mode: UIDatePickerModeDate, Locale: de_DE, Input param: NSArray *date = @[@"17.", @"Juni", @"1965".
  @param datePickerColumnValues Each element in the NSArray represents a rotating wheel in the date picker control. Elements from 0 - n are listed in the order of the rotating wheels, left to right.
  */
-- (void)selectDatePickerValue:(NSArray *)datePickerColumnValues;
+- (void)selectDatePickerValue:(NSArray *)datePickerColumnValues NS_DEPRECATED_IOS(10_0, 13_4,"Use -[viewTester selectDatePickerWithDate:] or -[viewTester selectCountdownDatePickerWithHours:] instead.");
 
 /*!
  @abstract Selects a value from a currently visible date picker view, according to the search order specified.
@@ -678,7 +678,7 @@ typedef NS_ENUM(NSUInteger, KIFPullToRefreshTiming) {
 /*!
  @abstract Waits until a view or accessibility element is the first responder.
  @discussion The first responder is found by searching the view hierarchy of the application's
- main window and its accessibility label is compared to the given value. If they match, the
+ windows and its accessibility label is compared to the given value. If they match, the
  step returns success else it will attempt to wait until they do.
  @param label The accessibility label of the element to wait for.
  */
@@ -687,7 +687,7 @@ typedef NS_ENUM(NSUInteger, KIFPullToRefreshTiming) {
 /*!
  @abstract Waits until a view or accessibility element is the first responder.
  @discussion The first responder is found by searching the view hierarchy of the application's
- main window and its accessibility label is compared to the given value. If they match, the
+ windows and its accessibility label is compared to the given value. If they match, the
  step returns success else it will attempt to wait until they do.
  @param label The accessibility label of the element to wait for.
  @param traits The accessibility traits of the element to wait for. Elements that do not include at least these traits are ignored.

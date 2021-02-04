@@ -31,15 +31,9 @@ class BeerDetailViewController: UIViewController {
         self.navigationItem.title = viewModel.getBeer().name
     }
 
-    fileprivate func setupView() {
-
+    private func setupView() {
         view.addSubview(detailView)
-
-        if #available(iOS 11.0, *) {
-            detailView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor)
-        } else {
-            detailView.anchor(top: topLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
-        }
+        detailView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor)
     }
 
     private func show() {

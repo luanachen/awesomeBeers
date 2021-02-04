@@ -4,39 +4,40 @@ class BeerListViewModelTests: XCTestCase {
     
     var sut: BeerListViewModel!
     var delegateMock: MockBeerListViewModelControllerDelegate!
+    var dataProvider: MockDataProvider!
     var sessionMock: MockBeerSessionProtocol!
     
     override func setUp() {
         super.setUp()
         delegateMock = MockBeerListViewModelControllerDelegate()
         sessionMock = MockBeerSessionProtocol()
-        
-        sut = BeerListViewModel(session: sessionMock)
+        dataProvider = MockDataProvider(beerSession: sessionMock)
+
+        sut = BeerListViewModel(dataProvider: dataProvider)
         sut.delegate = delegateMock
-        sut.loadBeers()
     }
     
     override func tearDown() {
         sut = nil
+        delegateMock = nil
+        dataProvider = nil
+        sessionMock = nil
         super.tearDown()
     }
     
-    func testLoadBeersCallsSessionGetAllBeers() {
-        XCTAssertTrue(sessionMock.didCallGetAllBeers)
-    }
-    
-    func testLoadBeersSuccess() {
-        XCTAssertTrue(delegateMock.didLoadSuccess)
-        XCTAssertFalse(delegateMock.isLoading)
-    }
-    
-    func testLoadBeersFail() {
-        sessionMock.isSuccess = false
+    func testLoadBeersCallsSessionGetAllBeersWithSuccess() {
         sut.loadBeers()
-        XCTAssertFalse(delegateMock.didLoadSuccess)
-        XCTAssertFalse(delegateMock.isLoading)
+        XCTAssertTrue(delegateMock.startLoading)
+        XCTAssertTrue(delegateMock.loadWithSuccess)
     }
-    
+
+    func testLoadBeersCallsSessionGetAllBeersWithError() {
+        sessionMock.isNetworkSuccess = false
+        sut.loadBeers()
+        XCTAssertTrue(delegateMock.startLoading)
+        XCTAssertTrue(delegateMock.loadWithError)
+    }
+
     func testGetNumberOfItemsNotNil() {
         XCTAssertNotNil(sut.getNumberOfItems())
     }
@@ -48,11 +49,13 @@ class BeerListViewModelTests: XCTestCase {
     }
     
     func testDidSelectRowCallsDelegateDidSelect() {
+        sut.loadBeers()
         sut.didSelectRow(0)
         XCTAssertTrue(delegateMock.didCallDidSelect)
     }
     
     func testDidSelectRowPassesRightBeerToDelegate() {
+        sut.loadBeers()
         let expectedBeer = BeerFactory.build()
         sut.didSelectRow(0)
         XCTAssertEqual(delegateMock.selectedBeer, expectedBeer)
@@ -61,12 +64,9 @@ class BeerListViewModelTests: XCTestCase {
 }
 
 class MockBeerListViewModelControllerDelegate: BeerListViewControllerDelegate {
-    var didCallLoad = false
-    var didLoadSuccess = false
-    
-    var didCallShowLoading = false
-    var isLoading = false
-    
+    var startLoading = false
+    var loadWithSuccess = false
+    var loadWithError = false
     var didCallDidSelect = false
     var selectedBeer = Beer(beerId: 0,
                             name: "",
@@ -75,32 +75,41 @@ class MockBeerListViewModelControllerDelegate: BeerListViewControllerDelegate {
                             imageUrl: "",
                             abv: 0.0,
                             ibu: 0.0)
-    
-    func didLoad(success: Bool) {
-        didCallLoad = true
-        didLoadSuccess = success
+
+    func didStartLoading() {
+        startLoading = true
     }
-    
-    func showLoadingIndicator(isLoading: Bool) {
-        didCallShowLoading = true
-        self.isLoading = isLoading
+
+    func didLoadWithSuccess() {
+        loadWithSuccess = true
     }
-    
+
+    func didLoadWithError() {
+         loadWithError = true
+    }
+
     func didSelect(beer: Beer) {
         didCallDidSelect = true
         selectedBeer = beer
     }
 }
 
+import NetworkHelper
+
+class MockDataProvider: DataProviderProtocol {
+    var beerSession: BeerSessionProtocol
+
+    init(beerSession: BeerSessionProtocol = MockBeerSessionProtocol()) {
+        self.beerSession = beerSession
+    }
+}
+
 class MockBeerSessionProtocol: BeerSessionProtocol {
-    var didCallGetAllBeers = false
-    var isSuccess: Bool = true
-    
+    var isNetworkSuccess: Bool = true
+
     func getAllBeers(completion: @escaping (Result<[Beer]?, APIError>) -> Void) {
-        didCallGetAllBeers = true
-        
         let beers = MockLoader().loadFile()
-        if isSuccess {
+        if isNetworkSuccess {
             completion(.success(beers))
         } else {
             completion(.failure(APIError.invalidData))

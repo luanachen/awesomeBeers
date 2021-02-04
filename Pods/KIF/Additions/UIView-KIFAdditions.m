@@ -15,6 +15,7 @@
 #import <objc/runtime.h>
 #import "UIEvent+KIFAdditions.h"
 #import "KIFUITestActor.h"
+#import <WebKit/WebKit.h>
 
 double KIFDegreesToRadians(double deg) {
     return (deg) / 180.0 * M_PI;
@@ -455,10 +456,16 @@ NS_INLINE BOOL StringsMatchExceptLineBreaks(NSString *expected, NSString *actual
     // This may not be necessary anymore. We didn't properly support controls that used gesture recognizers
     // when this was added, but we now do. It needs to be tested before we can get rid of it.
     id /*UIWebBrowserView*/ webBrowserView = nil;
+
+    BOOL isWebView = [self isKindOfClass:[WKWebView class]];
+
+#if  __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_12_0
+    isWebView = isWebView || [self isKindOfClass:[UIWebView class]];
+#endif
     
     if ([NSStringFromClass([self class]) isEqual:@"UIWebBrowserView"]) {
         webBrowserView = self;
-    } else if ([self isKindOfClass:[UIWebView class]]) {
+    } else if (isWebView) {
         id webViewInternal = [self valueForKey:@"_internal"];
         webBrowserView = [webViewInternal valueForKey:@"browserView"];
     }
@@ -474,10 +481,10 @@ NS_INLINE BOOL StringsMatchExceptLineBreaks(NSString *expected, NSString *actual
     
     UIEvent *event = [self eventWithTouch:touch];
 
-    [[UIApplication sharedApplication] sendEvent:event];
+    [[UIApplication sharedApplication] kif_sendEvent:event];
     
     [touch setPhaseAndUpdateTimestamp:UITouchPhaseEnded];
-    [[UIApplication sharedApplication] sendEvent:event];
+    [[UIApplication sharedApplication] kif_sendEvent:event];
 
     // Dispatching the event doesn't actually update the first responder, so fake it
     if ([touch.view isDescendantOfView:self] && [self canBecomeFirstResponder]) {
@@ -495,12 +502,12 @@ NS_INLINE BOOL StringsMatchExceptLineBreaks(NSString *expected, NSString *actual
     [touch2 setPhaseAndUpdateTimestamp:UITouchPhaseBegan];
 
     UIEvent *event = [self eventWithTouches:@[touch1, touch2]];
-    [[UIApplication sharedApplication] sendEvent:event];
+    [[UIApplication sharedApplication] kif_sendEvent:event];
 
     [touch1 setPhaseAndUpdateTimestamp:UITouchPhaseEnded];
     [touch2 setPhaseAndUpdateTimestamp:UITouchPhaseEnded];
 
-    [[UIApplication sharedApplication] sendEvent:event];
+    [[UIApplication sharedApplication] kif_sendEvent:event];
 }
 
 #define DRAG_TOUCH_DELAY 0.01
@@ -511,7 +518,7 @@ NS_INLINE BOOL StringsMatchExceptLineBreaks(NSString *expected, NSString *actual
     [touch setPhaseAndUpdateTimestamp:UITouchPhaseBegan];
     
     UIEvent *eventDown = [self eventWithTouch:touch];
-    [[UIApplication sharedApplication] sendEvent:eventDown];
+    [[UIApplication sharedApplication] kif_sendEvent:eventDown];
     
     CFRunLoopRunInMode(kCFRunLoopDefaultMode, DRAG_TOUCH_DELAY, false);
     
@@ -520,14 +527,14 @@ NS_INLINE BOOL StringsMatchExceptLineBreaks(NSString *expected, NSString *actual
         [touch setPhaseAndUpdateTimestamp:UITouchPhaseStationary];
         
         UIEvent *eventStillDown = [self eventWithTouch:touch];
-        [[UIApplication sharedApplication] sendEvent:eventStillDown];
+        [[UIApplication sharedApplication] kif_sendEvent:eventStillDown];
         
         CFRunLoopRunInMode(kCFRunLoopDefaultMode, DRAG_TOUCH_DELAY, false);
     }
     
     [touch setPhaseAndUpdateTimestamp:UITouchPhaseEnded];
     UIEvent *eventUp = [self eventWithTouch:touch];
-    [[UIApplication sharedApplication] sendEvent:eventUp];
+    [[UIApplication sharedApplication] kif_sendEvent:eventUp];
     
     // Dispatching the event doesn't actually update the first responder, so fake it
     if ([touch.view isDescendantOfView:self] && [self canBecomeFirstResponder]) {
@@ -614,7 +621,7 @@ NS_INLINE BOOL StringsMatchExceptLineBreaks(NSString *expected, NSString *actual
                 [touches addObject:touch];
             }
             UIEvent *eventDown = [self eventWithTouches:[NSArray arrayWithArray:touches]];
-            [[UIApplication sharedApplication] sendEvent:eventDown];
+            [[UIApplication sharedApplication] kif_sendEvent:eventDown];
             
             CFRunLoopRunInMode(UIApplicationCurrentRunMode, DRAG_TOUCH_DELAY, false);
         }
@@ -630,7 +637,7 @@ NS_INLINE BOOL StringsMatchExceptLineBreaks(NSString *expected, NSString *actual
                 [touch setPhaseAndUpdateTimestamp:UITouchPhaseMoved];
             }
             UIEvent *event = [self eventWithTouches:[NSArray arrayWithArray:touches]];
-            [[UIApplication sharedApplication] sendEvent:event];
+            [[UIApplication sharedApplication] kif_sendEvent:event];
 
             CFRunLoopRunInMode(UIApplicationCurrentRunMode, DRAG_TOUCH_DELAY, false);
 
@@ -639,7 +646,7 @@ NS_INLINE BOOL StringsMatchExceptLineBreaks(NSString *expected, NSString *actual
                 for (UITouch * touch in touches) {
                     [touch setPhaseAndUpdateTimestamp:UITouchPhaseEnded];
                     UIEvent *eventUp = [self eventWithTouch:touch];
-                    [[UIApplication sharedApplication] sendEvent:eventUp];
+                    [[UIApplication sharedApplication] kif_sendEvent:eventUp];
                     
                 }
 
@@ -751,7 +758,7 @@ NS_INLINE BOOL StringsMatchExceptLineBreaks(NSString *expected, NSString *actual
 
 - (BOOL)isProbablyTappable
 {
-    // There are some issues with the tappability check in UIWebViews, so if the view is a UIWebView we will just skip the check.
+    // There are some issues with the tappability check in WKWebViews, so if the view is a WKWebView we will just skip the check.
     return [NSStringFromClass([self class]) isEqualToString:@"UIWebBrowserView"] || self.isTappable;
 }
 
@@ -922,7 +929,7 @@ NS_INLINE BOOL StringsMatchExceptLineBreaks(NSString *expected, NSString *actual
 
 - (BOOL)isNavigationItemView;
 {
-    return [self isKindOfClass:NSClassFromString(@"UINavigationItemView")] || [self isKindOfClass:NSClassFromString(@"_UINavigationBarBackIndicatorView")];
+    return [self isKindOfClass:NSClassFromString(@"UINavigationItemView")] || [self isKindOfClass:NSClassFromString(@"_UINavigationBarBackIndicatorView")] || [self isKindOfClass:NSClassFromString(@"_UIModernBarButton")];
 }
 
 - (UIWindow *)windowOrIdentityWindow

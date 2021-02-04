@@ -1,8 +1,9 @@
 import Foundation
 
 protocol BeerListViewControllerDelegate: class {
-    func didLoad(success: Bool)
-    func showLoadingIndicator(isLoading: Bool)
+    func didStartLoading()
+    func didLoadWithSuccess()
+    func didLoadWithError()
     func didSelect(beer: Beer)
 }
 

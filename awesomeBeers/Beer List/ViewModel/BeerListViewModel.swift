@@ -13,19 +13,16 @@ class BeerListViewModel {
     }
 
     func loadBeers() {
-        self.delegate?.showLoadingIndicator(isLoading: true)
-
-        dataProvider.beerSession.getAllBeers { result in
+        delegate?.didStartLoading()
+        dataProvider.beerSession.getAllBeers { [weak self] result in
             switch result {
             case .success(let beers):
                 guard let beers = beers else { return }
-                self.beers = beers
-                self.delegate?.didLoad(success: true)
-                self.delegate?.showLoadingIndicator(isLoading: false)
+                self?.beers = beers
+                self?.delegate?.didLoadWithSuccess()
             case .failure(let error):
-                self.errorMessage = error.localizedDescription
-                self.delegate?.didLoad(success: false)
-                self.delegate?.showLoadingIndicator(isLoading: false)
+                self?.errorMessage = error.localizedDescription
+                self?.delegate?.didLoadWithError()
                 print("the error \(error)")
             }
         }
