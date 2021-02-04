@@ -5,16 +5,16 @@
 
 ## Requirements
 
-- iOS 11.0+
-- Xcode 10.2+
-- Swift 5.0
+- iOS 14.0+
+- Xcode 12+
+- Swift 5.4+
 - Cocoapods 1.9.1+
 
 ## QuickStart
 
 ### How to run the project
 
-This project uses [Cocoapods](https://github.com/CocoaPods/CocoaPods) as a dependency manager of choice. The dependencies are not included in the project so you need open this folder in Terminal and run the following command:
+This project uses [Cocoapods](https://github.com/CocoaPods/CocoaPods) and [Swift Package Manager](https://github.com/apple/swift-package-manager) -  which manages [NetworkHelper](https://github.com/luanachen/NetworkHelper), a networking framework that I'm currenctly working on. The pods are not included in the project so you need open this folder in Terminal and run the following command:
 
 ```sh
 pod install
