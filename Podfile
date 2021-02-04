@@ -7,6 +7,7 @@ target 'awesomeBeers' do
   # Pods for awesomeBeers
 
  pod 'Kingfisher'
+ pod 'SwiftLint'
 
   target 'awesomeBeersTests' do
     inherit! :search_paths
