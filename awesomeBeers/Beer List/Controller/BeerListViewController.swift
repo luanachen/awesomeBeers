@@ -60,7 +60,7 @@ class BeerListViewController: UICollectionViewController, UICollectionViewDelega
     
     private func setupIndicatorView() {
         indicator = UIActivityIndicatorView(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: ViewConstants.IndicatorDimensions, height: ViewConstants.IndicatorDimensions)))
-        indicator.style = .gray
+        indicator.style = .medium
         indicator.center = collectionView.center
         indicator.hidesWhenStopped = true
         self.view.addSubview(indicator)
