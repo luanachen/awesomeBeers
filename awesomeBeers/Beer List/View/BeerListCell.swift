@@ -5,7 +5,7 @@ class BeerListCell: UICollectionViewCell {
     
     static var identifier = "BeerListCell"
     
-    let nameLabel: UILabel = {
+    private var nameLabel: UILabel = {
         var label = UILabel()
         label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 16)
@@ -14,14 +14,14 @@ class BeerListCell: UICollectionViewCell {
         label.sizeToFit()
         return label
     }()
-    
-    var imageView: UIImageView = {
+
+    private var imageView: UIImageView = {
         var imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-    
-    var abvLabel: UILabel = {
+
+    private var abvLabel: UILabel = {
         var label = UILabel()
         label.textColor = .white
         label.backgroundColor = .black
@@ -52,7 +52,7 @@ class BeerListCell: UICollectionViewCell {
         layer.backgroundColor = UIColor.clear.cgColor
         backgroundColor = .white
         layer.cornerRadius = 10.0
-        
+
         [imageView, nameLabel, abvLabel].forEach { self.contentView.addSubview($0) }
         
         let topLineLayer = CALayer()
@@ -74,10 +74,10 @@ class BeerListCell: UICollectionViewCell {
         abvLabel.text = "abv: \(beer.abv)"
         
         let imageURL = URL(string: beer.imageUrl)
-        
+
         imageView.kf.indicatorType = .activity
         imageView.kf.setImage(with: imageURL, placeholder: #imageLiteral(resourceName: "placeholder"))
-        
+
         imageView.kf.setImage(
             with: imageURL,
             placeholder: #imageLiteral(resourceName: "placeholder"),

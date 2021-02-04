@@ -3,25 +3,16 @@ import UIKit
 
 class DetailView: UIView {
     
-    var imageView: UIImageView
-    let descriptionLabel: UITextView
-    let taglineLabel: UILabel
-    let abvLabel: UILabel
-    let ibuLabel: UILabel
-    let topLineLayer: CALayer
+    private var imageView = UIImageView()
+    private var descriptionLabel = UITextView()
+    private var taglineLabel = UILabel()
+    private var abvLabel = UILabel()
+    private var ibuLabel = UILabel()
+    private var topLineLayer = CALayer()
     
     override init(frame: CGRect) {
-        imageView = UIImageView()
-        descriptionLabel = UITextView()
-        taglineLabel = UILabel()
-        abvLabel = UILabel()
-        ibuLabel = UILabel()
-        topLineLayer = CALayer()
-        
         super.init(frame: frame)
-        
         backgroundColor = .white
-        
         self.initViews()
     }
     
