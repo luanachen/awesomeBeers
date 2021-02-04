@@ -5,9 +5,31 @@ class BeerListCell: UICollectionViewCell {
     
     static var identifier = "BeerListCell"
     
-    weak var nameLabel: UILabel!
-    weak var imageView: UIImageView!
-    weak var abvLabel: UILabel!
+    let nameLabel: UILabel = {
+        var label = UILabel()
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 0
+        label.sizeToFit()
+        return label
+    }()
+    
+    var imageView: UIImageView = {
+        var imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
+    var abvLabel: UILabel = {
+        var label = UILabel()
+        label.textColor = .white
+        label.backgroundColor = .black
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.sizeToFit()
+        return label
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,15 +50,8 @@ class BeerListCell: UICollectionViewCell {
         layer.masksToBounds = false
         layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: contentView.layer.cornerRadius).cgPath
         layer.backgroundColor = UIColor.clear.cgColor
-        
         backgroundColor = .white
         layer.cornerRadius = 10.0
-        
-        let imageView = UIImageView()
-        
-        let nameLabel = UILabel(frame: .zero)
-        
-        let abvLabel = UILabel(frame: .zero)
         
         [imageView, nameLabel, abvLabel].forEach { self.contentView.addSubview($0) }
         
@@ -44,23 +59,6 @@ class BeerListCell: UICollectionViewCell {
         topLineLayer.frame = CGRect(x: 0, y: 0, width: frame.width, height: 1)
         topLineLayer.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         nameLabel.layer.addSublayer(topLineLayer)
-        
-        self.nameLabel = nameLabel
-        self.nameLabel.textAlignment = .center
-        self.nameLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        self.nameLabel.lineBreakMode = .byWordWrapping
-        self.nameLabel.numberOfLines = 0
-        self.nameLabel.sizeToFit()
-        
-        self.imageView = imageView
-        self.imageView.contentMode = .scaleAspectFit
-        
-        self.abvLabel = abvLabel
-        self.abvLabel.textColor = .white
-        self.abvLabel.backgroundColor = .black
-        self.abvLabel.textAlignment = .center
-        self.abvLabel.font = UIFont.boldSystemFont(ofSize: 14)
-        self.abvLabel.sizeToFit()
     }
     
     private func setupContraints() {
@@ -76,10 +74,10 @@ class BeerListCell: UICollectionViewCell {
         abvLabel.text = "abv: \(beer.abv)"
         
         let imageURL = URL(string: beer.imageUrl)
-
+        
         imageView.kf.indicatorType = .activity
         imageView.kf.setImage(with: imageURL, placeholder: #imageLiteral(resourceName: "placeholder"))
-
+        
         imageView.kf.setImage(
             with: imageURL,
             placeholder: #imageLiteral(resourceName: "placeholder"),
