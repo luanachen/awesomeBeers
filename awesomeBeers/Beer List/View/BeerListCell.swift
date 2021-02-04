@@ -76,7 +76,22 @@ class BeerListCell: UICollectionViewCell {
         abvLabel.text = "abv: \(beer.abv)"
         
         let imageURL = URL(string: beer.imageUrl)
+
         imageView.kf.indicatorType = .activity
         imageView.kf.setImage(with: imageURL, placeholder: #imageLiteral(resourceName: "placeholder"))
+
+        imageView.kf.setImage(
+            with: imageURL,
+            placeholder: #imageLiteral(resourceName: "placeholder"),
+            options: nil,
+            completionHandler: {
+                result in
+                switch result {
+                case .success(let value):
+                    print("Task done for: \(value.source.url?.absoluteString ?? "")")
+                case .failure(let error):
+                    print("Job failed: \(error.localizedDescription)")
+                }
+            })
     }
 }

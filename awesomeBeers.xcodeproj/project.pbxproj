@@ -12,16 +12,10 @@
 		0F2A1C6F2209B33100294DC9 /* BeerDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C6E2209B33100294DC9 /* BeerDetailViewModel.swift */; };
 		0F2A1C732209B35A00294DC9 /* BeerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C722209B35A00294DC9 /* BeerDetailViewController.swift */; };
 		0F2A1C7A2209B63200294DC9 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C792209B63200294DC9 /* EndPoint.swift */; };
-		0F2A1C832209B64D00294DC9 /* EndpointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C7C2209B64B00294DC9 /* EndpointType.swift */; };
-		0F2A1C842209B64D00294DC9 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C7D2209B64B00294DC9 /* APIError.swift */; };
-		0F2A1C852209B64D00294DC9 /* HTTPHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C7E2209B64B00294DC9 /* HTTPHeader.swift */; };
-		0F2A1C862209B64D00294DC9 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C7F2209B64C00294DC9 /* HTTPMethod.swift */; };
-		0F2A1C882209B64D00294DC9 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C812209B64C00294DC9 /* APIClient.swift */; };
-		0F2A1C892209B64D00294DC9 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C822209B64D00294DC9 /* Result.swift */; };
 		0F2A1C8D2209B66200294DC9 /* BeerSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C8B2209B66200294DC9 /* BeerSession.swift */; };
 		0F2A1C8E2209B66200294DC9 /* BeerSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C8C2209B66200294DC9 /* BeerSessionProtocol.swift */; };
 		0F2A1C922209B68500294DC9 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C902209B68400294DC9 /* DataProvider.swift */; };
-		0F2A1C932209B68500294DC9 /* DataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C912209B68500294DC9 /* DataProtocol.swift */; };
+		0F2A1C932209B68500294DC9 /* DataProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C912209B68500294DC9 /* DataProviderProtocol.swift */; };
 		0F2A1C952209B97600294DC9 /* Facade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C942209B97600294DC9 /* Facade.swift */; };
 		0F2A1C992209C92B00294DC9 /* BeerDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C982209C92B00294DC9 /* BeerDetailViewModelTests.swift */; };
 		0F2A1C9A2209C93A00294DC9 /* BeerListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C962209C91900294DC9 /* BeerListViewModelTests.swift */; };
@@ -31,15 +25,10 @@
 		0F2A1C9E2209CA3600294DC9 /* BeerListProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9367522086BE500EC1F93 /* BeerListProtocols.swift */; };
 		0F2A1CA02209CA4700294DC9 /* Facade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C942209B97600294DC9 /* Facade.swift */; };
 		0F2A1CA12209CA5000294DC9 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C902209B68400294DC9 /* DataProvider.swift */; };
-		0F2A1CA22209CA5900294DC9 /* DataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C912209B68500294DC9 /* DataProtocol.swift */; };
+		0F2A1CA22209CA5900294DC9 /* DataProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C912209B68500294DC9 /* DataProviderProtocol.swift */; };
 		0F2A1CA32209CA6000294DC9 /* BeerSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C8C2209B66200294DC9 /* BeerSessionProtocol.swift */; };
-		0F2A1CA42209CA6600294DC9 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C822209B64D00294DC9 /* Result.swift */; };
-		0F2A1CA52209CA7000294DC9 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C7D2209B64B00294DC9 /* APIError.swift */; };
 		0F2A1CA62209CA7800294DC9 /* BeerSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C8B2209B66200294DC9 /* BeerSession.swift */; };
-		0F2A1CA72209CA8000294DC9 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C812209B64C00294DC9 /* APIClient.swift */; };
 		0F2A1CA82209CA8900294DC9 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C792209B63200294DC9 /* EndPoint.swift */; };
-		0F2A1CA92209CA9100294DC9 /* EndpointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C7C2209B64B00294DC9 /* EndpointType.swift */; };
-		0F2A1CAA2209CA9A00294DC9 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1C7F2209B64C00294DC9 /* HTTPMethod.swift */; };
 		0F2A1CAD2209E08700294DC9 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1CAC2209E08700294DC9 /* CoordinatorProtocol.swift */; };
 		0F2A1CAF2209E0B900294DC9 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1CAE2209E0B900294DC9 /* AppCoordinator.swift */; };
 		0F2A1CB22209E11800294DC9 /* BeerListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A1CB12209E11800294DC9 /* BeerListCoordinator.swift */; };
@@ -102,17 +91,11 @@
 		0F2A1C6E2209B33100294DC9 /* BeerDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeerDetailViewModel.swift; sourceTree = "<group>"; };
 		0F2A1C722209B35A00294DC9 /* BeerDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeerDetailViewController.swift; sourceTree = "<group>"; };
 		0F2A1C792209B63200294DC9 /* EndPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
-		0F2A1C7C2209B64B00294DC9 /* EndpointType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointType.swift; sourceTree = "<group>"; };
-		0F2A1C7D2209B64B00294DC9 /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
-		0F2A1C7E2209B64B00294DC9 /* HTTPHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPHeader.swift; sourceTree = "<group>"; };
-		0F2A1C7F2209B64C00294DC9 /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		0F2A1C802209B64C00294DC9 /* MockLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockLoader.swift; sourceTree = "<group>"; };
-		0F2A1C812209B64C00294DC9 /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
-		0F2A1C822209B64D00294DC9 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		0F2A1C8B2209B66200294DC9 /* BeerSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeerSession.swift; sourceTree = "<group>"; };
 		0F2A1C8C2209B66200294DC9 /* BeerSessionProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeerSessionProtocol.swift; sourceTree = "<group>"; };
 		0F2A1C902209B68400294DC9 /* DataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
-		0F2A1C912209B68500294DC9 /* DataProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProtocol.swift; sourceTree = "<group>"; };
+		0F2A1C912209B68500294DC9 /* DataProviderProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProviderProtocol.swift; sourceTree = "<group>"; };
 		0F2A1C942209B97600294DC9 /* Facade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Facade.swift; sourceTree = "<group>"; };
 		0F2A1C962209C91900294DC9 /* BeerListViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeerListViewModelTests.swift; sourceTree = "<group>"; };
 		0F2A1C982209C92B00294DC9 /* BeerDetailViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeerDetailViewModelTests.swift; sourceTree = "<group>"; };
@@ -223,24 +206,10 @@
 			isa = PBXGroup;
 			children = (
 				0F2A1C792209B63200294DC9 /* EndPoint.swift */,
-				0F2A1C7B2209B63C00294DC9 /* Service */,
 				0F2A1C8A2209B65500294DC9 /* Session */,
 				0F2A1C8F2209B66B00294DC9 /* Provider */,
 			);
 			path = Networking;
-			sourceTree = "<group>";
-		};
-		0F2A1C7B2209B63C00294DC9 /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				0F2A1C822209B64D00294DC9 /* Result.swift */,
-				0F2A1C812209B64C00294DC9 /* APIClient.swift */,
-				0F2A1C7C2209B64B00294DC9 /* EndpointType.swift */,
-				0F2A1C7E2209B64B00294DC9 /* HTTPHeader.swift */,
-				0F2A1C7F2209B64C00294DC9 /* HTTPMethod.swift */,
-				0F2A1C7D2209B64B00294DC9 /* APIError.swift */,
-			);
-			path = Service;
 			sourceTree = "<group>";
 		};
 		0F2A1C8A2209B65500294DC9 /* Session */ = {
@@ -255,7 +224,7 @@
 		0F2A1C8F2209B66B00294DC9 /* Provider */ = {
 			isa = PBXGroup;
 			children = (
-				0F2A1C912209B68500294DC9 /* DataProtocol.swift */,
+				0F2A1C912209B68500294DC9 /* DataProviderProtocol.swift */,
 				0F2A1C902209B68400294DC9 /* DataProvider.swift */,
 			);
 			path = Provider;
@@ -808,24 +777,18 @@
 				0FE936802208712D00EC1F93 /* BeerListViewController.swift in Sources */,
 				0FE9367622086BE500EC1F93 /* BeerListViewModel.swift in Sources */,
 				0F2A1CAF2209E0B900294DC9 /* AppCoordinator.swift in Sources */,
-				0F2A1C882209B64D00294DC9 /* APIClient.swift in Sources */,
 				0FE9367C22086C1C00EC1F93 /* BeerResult.swift in Sources */,
 				0F2A1C6D2209B2E900294DC9 /* DetailView.swift in Sources */,
-				0F2A1C832209B64D00294DC9 /* EndpointType.swift in Sources */,
 				0F2A1CB22209E11800294DC9 /* BeerListCoordinator.swift in Sources */,
 				0FE93636220863DB00EC1F93 /* AppDelegate.swift in Sources */,
 				0FE9367822086BE500EC1F93 /* BeerListProtocols.swift in Sources */,
 				0FE936822208726A00EC1F93 /* PinterestLayout.swift in Sources */,
 				0F2A1C952209B97600294DC9 /* Facade.swift in Sources */,
 				EBC70D0325B2122B002F71EB /* UIView+extension.swift in Sources */,
-				0F2A1C852209B64D00294DC9 /* HTTPHeader.swift in Sources */,
 				0F2A1C6F2209B33100294DC9 /* BeerDetailViewModel.swift in Sources */,
 				0FE9366B2208674900EC1F93 /* BeerListCell.swift in Sources */,
-				0F2A1C932209B68500294DC9 /* DataProtocol.swift in Sources */,
-				0F2A1C862209B64D00294DC9 /* HTTPMethod.swift in Sources */,
-				0F2A1C842209B64D00294DC9 /* APIError.swift in Sources */,
+				0F2A1C932209B68500294DC9 /* DataProviderProtocol.swift in Sources */,
 				0F2A1C922209B68500294DC9 /* DataProvider.swift in Sources */,
-				0F2A1C892209B64D00294DC9 /* Result.swift in Sources */,
 				0F2A1C7A2209B63200294DC9 /* EndPoint.swift in Sources */,
 				0F2A1C8D2209B66200294DC9 /* BeerSession.swift in Sources */,
 				0F80C17A23BE33CF000D6CD0 /* MockLoader.swift in Sources */,
@@ -843,36 +806,31 @@
 				0F80C17323B594D0000D6CD0 /* DetailView.swift in Sources */,
 				0F80C17B23BE33D0000D6CD0 /* MockLoader.swift in Sources */,
 				0F02361B23B5923F00A67780 /* BeerListCoordinatorTests.swift in Sources */,
-				0F2A1CA22209CA5900294DC9 /* DataProtocol.swift in Sources */,
+				0F2A1CA22209CA5900294DC9 /* DataProviderProtocol.swift in Sources */,
 				0F2A1CA32209CA6000294DC9 /* BeerSessionProtocol.swift in Sources */,
 				0F2A1C9A2209C93A00294DC9 /* BeerListViewModelTests.swift in Sources */,
 				0F2A1C9C2209C9F600294DC9 /* BeerDetailViewModel.swift in Sources */,
 				0F2A1CA02209CA4700294DC9 /* Facade.swift in Sources */,
-				0F2A1CA42209CA6600294DC9 /* Result.swift in Sources */,
 				EB7D106D241C456100CB6029 /* KIF+Extensions.swift in Sources */,
 				0F80C17723B59532000D6CD0 /* BeerListCell.swift in Sources */,
 				0F2A1C9B2209C9EC00294DC9 /* BeerListViewModel.swift in Sources */,
-				0F2A1CA72209CA8000294DC9 /* APIClient.swift in Sources */,
 				0F2A1C9E2209CA3600294DC9 /* BeerListProtocols.swift in Sources */,
 				0F2A1CA82209CA8900294DC9 /* EndPoint.swift in Sources */,
 				0F80C17623B5951F000D6CD0 /* PinterestLayout.swift in Sources */,
 				0F80C16E23B5941F000D6CD0 /* BeerListViewController.swift in Sources */,
 				0F80C17423B594D6000D6CD0 /* BeerDetailViewController.swift in Sources */,
 				2C79A22F23B68533007C7371 /* BeerListViewControllerTests.swift in Sources */,
-				0F2A1CA92209CA9100294DC9 /* EndpointType.swift in Sources */,
 				0F2A1CA12209CA5000294DC9 /* DataProvider.swift in Sources */,
 				0F2A1C992209C92B00294DC9 /* BeerDetailViewModelTests.swift in Sources */,
 				0F80C17223B594B6000D6CD0 /* CoordinatorProtocol.swift in Sources */,
 				EBA66ADF241C053D008D3327 /* BeerDetailViewModelFactory.swift in Sources */,
 				0F80C16F23B5942E000D6CD0 /* BeerListCoordinator.swift in Sources */,
-				0F2A1CAA2209CA9A00294DC9 /* HTTPMethod.swift in Sources */,
 				0F2A1C9D2209CA2A00294DC9 /* BeerResult.swift in Sources */,
 				0F2A1CA62209CA7800294DC9 /* BeerSession.swift in Sources */,
 				EBA66ADB241BFF7B008D3327 /* BeerFactory.swift in Sources */,
 				EBCB918124211DEB000CD3B8 /* DefaultFlowTest.swift in Sources */,
 				EBA66ADD241C00B7008D3327 /* DetailViewTests.swift in Sources */,
 				EBA66AE7241C0DD5008D3327 /* BeerListCellTests.swift in Sources */,
-				0F2A1CA52209CA7000294DC9 /* APIError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

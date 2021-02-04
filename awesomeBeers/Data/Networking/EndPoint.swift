@@ -1,4 +1,5 @@
 import Foundation
+import NetworkHelper
 
 enum BeerEndpoint {
     case allBeers

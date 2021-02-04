@@ -7,7 +7,7 @@
 //
 
 import Foundation
-//import NetworkHelper
+import NetworkHelper
 
 class BeerSession: BeerSessionProtocol, APIClient {
 
@@ -30,7 +30,6 @@ class BeerSession: BeerSessionProtocol, APIClient {
             guard let beerResult = json as? [Beer] else { return nil }
             return beerResult
         }, completion: completion)
-        
     }
 
 }

@@ -1,5 +1,5 @@
 import Foundation
 
-protocol DataProtocol {
+protocol DataProviderProtocol {
     var beerSession: BeerSessionProtocol { get }
 }

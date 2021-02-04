@@ -29,9 +29,7 @@ class BeerListCoordinator: CoordinatorProtocol {
 }
 
 extension BeerListCoordinator: BeerListViewModelCoordinatorDelegate {
-    func didSelect(beer: Beer) {
-        
-        
+    func didSelect(beer: Beer) { 
         let viewController = createBeerDetailViewController(beer: beer)
         navigation?.pushViewController(viewController, animated: true)
     }

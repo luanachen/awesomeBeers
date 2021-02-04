@@ -3,19 +3,19 @@ import Foundation
 class BeerListViewModel {
 
     weak var delegate: BeerListViewControllerDelegate?
-    
-    private var session: BeerSessionProtocol
+
+    private var dataProvider: DataProviderProtocol
     private var beers: [Beer]?
     private var errorMessage: String?
-    
-    init(session: BeerSessionProtocol = BeerSession()) {
-        self.session = session
+
+    init(dataProvider: DataProviderProtocol = DataProvider()) {
+        self.dataProvider = dataProvider
     }
 
     func loadBeers() {
         self.delegate?.showLoadingIndicator(isLoading: true)
 
-        session.getAllBeers { result in
+        dataProvider.beerSession.getAllBeers { result in
             switch result {
             case .success(let beers):
                 guard let beers = beers else { return }

@@ -1,6 +1,6 @@
 import Foundation
 
-class DataProvider: DataProtocol {
+class DataProvider: DataProviderProtocol {
     var beerSession: BeerSessionProtocol
 
     init() {
